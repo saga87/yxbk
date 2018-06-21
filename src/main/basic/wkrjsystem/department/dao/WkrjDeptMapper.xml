@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystem.department.dao.WkrjDeptDao">
+	
+	<select id="getDeptTree" resultType="WkrjDept" parameterType="String">
+		
+		SELECT *
+		FROM `wkrj_sys_department` 
+		where true 
+		<choose>  
+	        <when test="true==isGly">  
+	            and dept_parent_id = #{parent_id}
+	        </when>   
+	        <when test="false==isGly and user_dept!=null and user_dept!=''">  
+	        	and dept_parent_id =#{user_dept}
+	            <!-- and dept_parent_id like concat("%", #{user_dept},"%") -->
+	        </when>  
+	        <otherwise>  
+	           
+	        </otherwise>  
+    	</choose>  
+		
+		order by dept_order
+	</select>
+	
+	<select id="getDeptNameById" resultType="WkrjDept" parameterType="String">
+		
+		SELECT *
+		FROM `wkrj_sys_department` 
+		where dept_id = #{dept_id}
+		order by dept_order
+	</select>
+	
+	<update id="updateDept" parameterType="WkrjDept" >
+	
+       update wkrj_sys_department set 
+       		dept_order=#{dept_order},dept_name=#{dept_name},
+       		dept_parent_id=#{dept_parent_id},dept_other=#{dept_other} 
+       where dept_id=#{dept_id}
+       
+    </update>
+    
+	<select id="getDeptChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(dept_id) 
+		FROM `wkrj_sys_department` 
+		where dept_parent_id = #{parentId}
+	
+	</select>
+	
+	<select id="getDeptChildMaxByPid" resultType="String" parameterType="String">
+		
+		SELECT IF(ISNULL(MAX(dept_id)),'00',MAX(dept_id)) dept_id FROM wkrj_sys_department
+		where dept_parent_id = #{parentId}
+	
+	</select>
+	
+	<insert id="addDept" parameterType="WkrjDept" >
+		
+		insert wkrj_sys_department
+			(dept_id,dept_order,dept_name,dept_parent_id,dept_is_leaf,dept_other) 
+		values
+			(#{dept_id},#{dept_order},#{dept_name},#{dept_parent_id},#{dept_is_leaf},#{dept_other})
+		
+	</insert>
+	
+	<delete id="delDept">
+		delete from wkrj_sys_department where dept_id=#{dept_id}
+	</delete>
+	
+</mapper>
+

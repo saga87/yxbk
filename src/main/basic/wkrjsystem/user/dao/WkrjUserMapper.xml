@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystem.user.dao.WkrjUserDao">
+
+
+	<select id="getRoleListByUserId" resultType="WkrjRole">
+		
+		SELECT role.role_id,role_name,role_other,role_type FROM `wkrj_sys_user_role` users,wkrj_sys_role role
+		WHERE users.role_id = role.role_id and user_id=#{user_id} ;
+	
+	</select>
+	
+	<!--20150703 add  -->
+	<!-- 首先映射简单类型 排除角色-->
+	<resultMap type="WkrjUser" id="simpleWkrjUser">
+		
+		<id column="user_id" property="user_id"/>
+		<result column="station_id" property="station_id"/>
+		<result column="dept_id" property="dept_id"/>
+		<result column="dept_name" property="dept_name"/>
+		<result column="user_name" property="user_name"/>
+		<result column="user_password" property="user_password"/>
+		<result column="user_realname" property="user_realname"/>
+		<result column="user_card" property="user_card"/>
+		<result column="user_is_enable" property="user_is_enable"/>
+		<result column="user_inputtime" property="user_inputtime" />
+		<result column="user_last_ip" property="user_last_ip" />
+		<result column="user_no" property="user_no" />
+		<result column="user_last_time" property="user_last_time" />
+		<result column="user_tel" property="user_tel" />
+		<result column="user_accounttype" property="user_accounttype" />
+		<result column="unit_name" property="unit_name" />
+		
+	</resultMap>
+	
+	<resultMap type="WkrjUser" id="wkrjUserAndRole" extends="simpleWkrjUser">
+		
+		<collection property="user_role" ofType="WkrjRole">
+		
+			<id column="role_id" property="role_id"/>
+			<result column="role_name" property="role_name"/>
+			<result column="role_type" property="role_type"/>
+			<result column="role_dept" property="role_dept"/>
+			<result column="role_other" property="role_other"/>
+			
+		</collection>
+		
+		
+	</resultMap>
+	
+	
+	<!--20150703 add  -->
+	<!-- 由于实体多对多分页有问题，所以讲获取角色的部分拿到外面去 -->
+	<select id="getUserList" resultMap="simpleWkrjUser" parameterType="Object">
+	
+		SELECT user_accounttype,user.user_id,user.dept_id,
+				station_id,user_name,user_password,user_realname,user_card,user_is_enable,
+			   DATE_FORMAT(user_inputtime,'%Y-%m-%d %H:%i:%s') user_inputtime,user_last_ip,user_no,d.dept_name,
+			   DATE_FORMAT(user_last_time,'%Y-%m-%d %H:%i:%s') user_last_time,user_tel
+		FROM   wkrj_sys_user user 
+		left join wkrj_sys_department d on user.dept_id=d.dept_id
+		where user_accounttype=0
+		
+		<if test="false==isGly">  
+            and user.inputuserdept LIKE CONCAT('%',#{user_dept},'%') or user.dept_id LIKE CONCAT('%',#{user_dept},'%')
+        </if>  
+		
+		<if test="null!=deptId and ''!=deptId">
+			and user.dept_id=#{deptId}
+		</if>
+		
+		<if test="null!=userName and ''!=userName">
+			and user_realname like concat("%",#{userName},"%")
+		</if>
+		
+		limit #{offset},#{page}	
+	
+	</select>
+	
+	
+	<resultMap type="WkrjUser" id="newWkrjUser">
+		
+		<id column="user_id" property="user_id"/>
+		<result column="station_id" property="station_id"/>
+		<result column="dept_id" property="dept_id"/>
+		<result column="user_name" property="user_name"/>
+		<result column="user_password" property="user_password"/>
+		<result column="user_realname" property="user_realname"/>
+		<result column="user_card" property="user_card"/>
+		<result column="user_is_enable" property="user_is_enable"/>
+		<result column="user_inputtime" property="user_inputtime" />
+		<result column="user_last_ip" property="user_last_ip" />
+		<result column="user_no" property="user_no" />
+		<result column="user_last_time" property="user_last_time" />
+		<result column="user_tel" property="user_tel" />
+		<result column="user_accounttype" property="user_accounttype" />
+		
+		<collection property="user_role" ofType="WkrjUserRole">
+			<id column="user_id" property="user_id"/>
+			<id column="role_id" property="role_id"/>
+		</collection>
+		
+		<!-- <collection property="user_role" ofType="WkrjRole">
+			<id column="user_id" property="user_id"/>
+			<result column="role_name" property="role_name"/>
+			<result column="role_type" property="role_type"/>
+			<result column="role_dept" property="role_dept"/>
+			<result column="role_other" property="role_other"/>
+		</collection> -->
+		
+	</resultMap>
+	
+	<select id="getUserListCount" resultType="Long" parameterType="Object">
+		
+		SELECT count(user_id) 
+		FROM `wkrj_sys_user` 
+		where user_accounttype =0 
+		<if test="false==isGly">  
+             and inputuserdept LIKE CONCAT('%',#{user_dept},'%') or dept_id LIKE CONCAT('%',#{user_dept},'%')
+        </if>  		
+		
+		<if test="null!=deptId and ''!=deptId">
+			and dept_id=#{deptId}
+		</if>
+		<if test="null!=userName and ''!=userName">
+			and user_realname like concat("%",#{userName},"%")
+		</if>
+		
+	</select>
+	
+	<insert id="addUser" parameterType="WkrjUser" >
+		
+		insert wkrj_sys_user(user_id,station_id,dept_id,user_name,user_password,user_realname,
+			   user_card,user_is_enable,user_inputtime,user_last_ip,user_no,user_last_time,user_tel,inputuserdept)
+		values(#{user_id},#{station_id},#{dept_id},#{user_name},#{user_password},#{user_realname},
+			   #{user_card},#{user_is_enable},#{user_inputtime},#{user_last_ip},#{user_no},#{user_last_time}
+			   ,#{user_tel},#{inputuserdept});
+	
+	</insert>
+	
+	<insert id="addUserRole" parameterType="WkrjUserRole">
+		 insert into wkrj_sys_user_role (user_id,role_id)   
+    	 values(#{user_id},#{role_id})  
+	</insert>
+	
+	<update id="updateUser" parameterType="WkrjUser">
+		
+		update wkrj_sys_user set station_id=#{station_id},dept_id=#{dept_id},user_name=#{user_name},
+			   user_realname=#{user_realname},user_card=#{user_card},
+			   user_is_enable=#{user_is_enable}, user_no=#{user_no},user_tel=#{user_tel}
+			   
+		where user_id=#{user_id}
+		
+	</update>
+	
+	<update id="repeatPw" parameterType="String">
+		
+		update wkrj_sys_user set user_password=#{user_password}
+		where user_id=#{user_id}
+		
+	</update>
+	
+	<update id="forbiddenUser" parameterType="String">
+		
+		update wkrj_sys_user set user_is_enable=#{user_is_enable}
+		where user_id=#{user_id}
+		
+	</update>
+	
+	<delete id="delUser">
+		delete from wkrj_sys_user where user_id=#{id}
+	</delete>
+	
+	<delete id="delUerRoleById">
+		delete from wkrj_sys_user_role where user_id=#{id}
+	</delete>
+	
+	<select id="checkIsHaveNameOrGhOrSfz" resultType="Long" parameterType="Object">
+		
+		SELECT count(user_id) 
+		FROM `wkrj_sys_user` 
+		where true
+		<if test="null!=name and ''!=name">
+			and user_name=#{name}
+		</if>
+		<if test="null!=gh and ''!=gh">
+			and user_no=#{gh}
+		</if>
+		<if test="null!=sfz and ''!=sfz">
+			and user_card=#{sfz}
+		</if>
+		<if test="null!=userId and ''!=userId">
+			and user_id!=#{userId}
+		</if>
+		
+	</select>
+	
+	
+	<select id="findUserInfoByName" resultType="WkrjUser" parameterType="Object">
+		
+		SELECT * 
+		FROM `wkrj_sys_user` 
+		where user_name=#{userName}
+		
+	</select>
+	<select id="findUserInfoByNameandPw" resultType="WkrjUser" parameterType="Object">
+		
+		SELECT * 
+		FROM `wkrj_sys_user` 
+		where user_name=#{userName} and user_password = #{pw} 
+		
+	</select>
+	
+	<select id="getRoleTree" resultType="WkrjRole" parameterType="String">
+        
+        SELECT role_id,role_name,role_type,role_dept,role_other 
+        FROM `wkrj_sys_role` where 1=1
+        <if test="1==role_level">
+            and role_level in(1,2,3,4)
+        </if>
+        <if test="2==role_level">
+            and role_level in(2,3,4)
+        </if>
+        <if test="3==role_level">
+            and role_level in(3,4)
+        </if>
+        <if test="4==role_level">
+            and role_level in(4)
+        </if>
+    
+    </select>
+	
+</mapper>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystem.station.dao.WkrjStationDao">
+	
+	
+	<select id="getStationList" resultType="WkrjStation" parameterType="Object">
+	
+		SELECT station_id,station_name
+		FROM `wkrj_sys_station` 
+		limit #{offset},#{page}	
+	
+	</select>
+	
+	<select id="getStationById" resultType="WkrjStation" parameterType="Object">
+	
+		SELECT station_id,station_name
+		FROM `wkrj_sys_station` 
+		where station_id=#{station_id}
+	
+	</select>
+	
+	<select id="getAllStationList" resultType="WkrjStation" parameterType="Object">
+	
+		SELECT station_id,station_name
+		FROM `wkrj_sys_station` 
+		
+	</select>
+	
+	<select id="getStationListCount" resultType="Long" parameterType="Object">
+		
+		SELECT count(station_id) 
+		FROM `wkrj_sys_station` 
+		
+	</select>
+	
+	<insert id="addStation" parameterType="WkrjStation" >
+		
+		insert wkrj_sys_station(station_id,station_name)
+		values(#{station_id},#{station_name});
+	
+	</insert>
+	
+	<update id="updateStation" parameterType="WkrjStation">
+		
+		update wkrj_sys_station set station_name=#{station_name}
+		where station_id=#{station_id}
+		
+	</update>
+	
+	<delete id="delStation">
+		delete from wkrj_sys_station where station_id=#{id}
+	</delete>
+	
+	
+</mapper>
+

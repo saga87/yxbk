@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.front.web.dao.WkrjWebDao">
+
+	<select id="listNotice" resultType="map" parameterType="Object">
+	    SELECT notice_id,notice_title,notice_content,
+	    DATE_FORMAT(addtime,'%Y-%m-%d' ) AS addtime FROM wkrj_bus_notice 
+	    WHERE 1=1 
+	    ORDER BY addtime DESC
+        LIMIT #{offset},#{rows}
+	</select>
+	
+	
+	<select id="countNotice" resultType="Long">
+		SELECT COUNT(*)  FROM wkrj_bus_notice
+	</select>
+    
+    <select id="listVideo" resultType="map" parameterType="Object">
+        SELECT * FROM `wkrj_bus_video` WHERE 1=1
+        <if test="video_name != null and video_name != ''">
+            AND video_name LIKE CONCAT(CONCAT('%',#{video_name}),'%')
+        </if>
+        <if test="data_id != null and data_id != ''">
+            AND data_id LIKE CONCAT(CONCAT('%',#{data_id}),'%')
+        </if>
+        <if test="speaker != null and speaker != ''">
+            AND speaker LIKE CONCAT(CONCAT('%',#{speaker}),'%')
+        </if>
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    <select id="listRecommendVideo" resultType="map" parameterType="Object">
+        SELECT video_id,video_name,speaker,speaker_unit,coverpath,playtime,content,recommend,data_id,
+        DATE_FORMAT(recommendtime,'%Y-%m-%d') AS recommendtime,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime 
+        FROM wkrj_bus_video  
+        WHERE recommend=1  ORDER BY recommendtime DESC 
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    <select id="listHotBooks" resultType="map" parameterType="Object">
+        SELECT * FROM `wkrj_bus_books`  ORDER BY pageview DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+     <select id="getNotice" parameterType="String" resultType="WkrjNotice">
+     	SELECT notice_id,notice_title,notice_content,
+	    DATE_FORMAT(addtime,'%Y-%m-%d' ) AS addtime FROM wkrj_bus_notice 
+	    where  notice_id = #{notice_id}
+     </select>
+    
+    
+    
+    
+    
+    
+</mapper>

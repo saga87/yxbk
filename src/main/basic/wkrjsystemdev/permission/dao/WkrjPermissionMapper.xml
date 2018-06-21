@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystemdev.permission.dao.WkrjPermissionDao">
+	
+	<select id="getPermissionList" resultType="WkrjPermission" parameterType="Object">
+		
+		SELECT perm_id,module_id,perm_name,perm_flag,perm_icon,CONCAT("&lt;img width=&apos;16px&apos; height=&apos;16px&apos; src=&apos;system/icons/",perm_icon,".png&apos;/&gt;") perm_icon_show
+		FROM `wkrj_sys_permission` 
+		where module_id = #{module_id}
+		order by perm_name
+		limit #{offset},#{page}
+		
+	
+	</select>
+	
+	<select id="getPermissionByModuleId" resultType="WkrjPermission" parameterType="Object">
+		
+		SELECT perm_id,module_id,perm_name,perm_flag,perm_icon 
+		FROM `wkrj_sys_permission` 
+		where module_id = #{module_id}
+	
+	</select>
+	
+	<select id="getPermissionByPermId" resultType="WkrjPermission" parameterType="Object">
+		
+		SELECT perm_id,module_id,perm_name,perm_flag,perm_icon 
+		FROM `wkrj_sys_permission` 
+		where perm_id = #{module_id}
+	
+	</select>
+	
+	<select id="getPermissionListCount" resultType="Long" parameterType="Object">
+		
+		SELECT count(module_id) 
+		FROM `wkrj_sys_permission` 
+		where module_id = #{module_id}
+	
+	</select>
+	
+	<select id="checkIsHavePermission" resultType="Integer" parameterType="Object">
+		
+		SELECT count(perm_id) 
+		FROM `wkrj_sys_permission` 
+		where perm_flag = #{perm_flag}
+		<if test="null!=perm_id">
+			 and perm_id != #{perm_id}
+		</if>
+		
+	
+	</select>
+	
+	<insert id="addPermission" parameterType="WkrjPermission" >
+		
+		insert wkrj_sys_permission(perm_id,module_id,perm_name,perm_flag,perm_icon)
+		values(#{perm_id},#{module_id},#{perm_name},#{perm_flag},#{perm_icon});
+	
+	</insert>
+	
+	<update id="updatePermission" parameterType="WkrjPermission">
+		
+		update wkrj_sys_permission set module_id=#{module_id},perm_name=#{perm_name},perm_flag=#{perm_flag},perm_icon=#{perm_icon}
+		where perm_id=#{perm_id}
+		
+	</update>
+	
+	<delete id="delPermission">
+		
+		delete from wkrj_sys_permission where perm_id=#{id}
+		
+	</delete>
+	
+	<delete id="delPermissionByModuleId">
+		delete from wkrj_sys_permission where module_id=#{moduleId}
+	</delete>
+	
+	
+</mapper>
+

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystemdev.module.dao.WkrjModuleDao">
+	
+	<select id="getLeftMenu" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} and module_is_display='0' order by module_order
+	
+	</select>
+	
+	<select id="getAllModule" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} order by module_order
+	
+	</select>
+	
+	<select id="getAllModuleChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(module_id) 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} 
+	
+	</select>
+	
+	<select id="getMenuById" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_is_display=0 and module_id = #{menu_id} and module_parent_id = #{parentId} order by module_order
+	
+	</select>
+	
+	<select id="getLeftMenuChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(module_id) 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} and module_is_display='0' order by module_order
+	
+	</select>
+	
+	<select id="checkNodeisLeaf" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} and module_is_display='0' order by module_order
+	
+	</select>
+	
+	<select id="getGridInfo" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} order by module_order
+	
+	</select>
+	
+	<select id="getDisplayGridInfo" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} and module_is_display=0 order by module_order
+	
+	</select>
+	
+		<select id="getDisplayGridInfoChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(module_id)  
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} and module_is_display=0 order by module_order
+	
+	</select>
+	
+	<select id="getWkrjModuleById" resultType="WkrjModule" parameterType="String">
+		
+		SELECT module_id,module_name,module_is_display,module_level,module_url,module_parent_id,module_order,module_icon,module_other 
+		FROM `wkrj_sys_module` 
+		where module_id = #{id}
+	
+	</select>
+	
+	<select id="getGridInfoChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(module_id)  
+		FROM `wkrj_sys_module` 
+		where module_parent_id = #{parentId} order by module_order
+	
+	</select>
+	
+	<insert id="addModule" parameterType="WkrjModule" >
+		
+		insert wkrj_sys_module(module_id,module_name,module_level,module_url,module_parent_id,module_order,module_icon,module_is_display,module_other)
+		values(#{module_id},#{module_name},#{module_level},#{module_url},#{module_parent_id},
+			   #{module_order},#{module_icon},#{module_is_display},#{module_other});
+	
+	</insert>
+	
+	<update id="updateModule" parameterType="WkrjModule">
+		
+		update wkrj_sys_module set module_name=#{module_name},module_level=#{module_level},module_url=#{module_url},module_parent_id=#{module_parent_id},module_order=#{module_order},module_icon=#{module_icon},module_is_display=#{module_is_display},module_other=#{module_other}
+		where module_id=#{module_id}
+		
+	</update>
+	
+	<delete id="delModule">
+		
+		delete from wkrj_sys_module where module_id=#{id}
+		
+	</delete>
+	
+	<select id="checkeIsHaveUseIcon" resultType="boolean">
+		SELECT count(menu_id) FROM `wkrj_sys_menu` where menu_icon=#{icon}
+	</select>
+
+	<select id="checkeIsHaveUseIconModule" resultType="boolean">
+		SELECT count(module_id) FROM wkrj_sys_module where module_icon=#{icon}
+	</select>
+	
+	<!-- <resultMap type="WkrjModule" id="WkrjModule2">
+	
+		<id column="id" property="id" />
+		<result column="module_name" property="module_name" />
+		<result column="module_is_display" property="module_is_display" javaType="boolean"/>
+		
+	</resultMap> -->
+	
+</mapper>
+

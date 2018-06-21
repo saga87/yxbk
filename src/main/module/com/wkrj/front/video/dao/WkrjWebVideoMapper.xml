@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.front.video.dao.WkrjWebVideoDao">
+	 
+    
+    <select id="getVideoData" resultType="WkrjData">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where data_parent_id = '01' AND data_show = '1'
+		ORDER BY data_order+0   	
+    </select>
+    
+    <select id="getVideoSecondData" resultType="WkrjData" parameterType="String">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where true  
+	    and data_parent_id = #{data_parent_id} AND data_show = '1'
+		ORDER BY data_order+0  	
+    </select>
+    
+    <select id="listNewVideo" resultType="map" parameterType="Object">
+        SELECT video_id,video_name,speaker,speaker_unit,coverpath,playtime,content,recommend,data_id,
+        DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime ,video_path
+        FROM wkrj_bus_video  
+        WHERE 1=1  ORDER BY addtime DESC 
+        LIMIT #{offset},#{rows}
+    </select>
+   
+   
+   
+   <select id="listVideos" resultType="map" parameterType="Object">
+       
+        SELECT video_id,video_name,speaker,speaker_unit,a.data_id,data_name,coverpath,playtime,content,recommend,
+        DATE_FORMAT(recommendtime,'%Y-%m-%d') AS recommendtime,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime ,video_path
+        FROM wkrj_bus_video a,wkrj_bus_data b
+        WHERE a.data_id=b.data_id
+        
+        <if test="data_id != null and data_id != ''">
+            AND a.data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+     
+       
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    <select id="searchVideos" resultType="map" parameterType="Object">
+       
+        SELECT video_id,video_name,speaker,speaker_unit,a.data_id,data_name,coverpath,playtime,content,recommend,
+        DATE_FORMAT(recommendtime,'%Y-%m-%d') AS recommendtime,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime ,video_path
+        FROM wkrj_bus_video a,wkrj_bus_data b
+        WHERE a.data_id=b.data_id
+        
+        <if test="video_name != null and video_name != ''">
+            AND video_name LIKE CONCAT(CONCAT('%',#{video_name}),'%')
+        </if>
+     
+       
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    
+    
+     <select id="getVideoById" resultType="map" parameterType="Object">
+       
+        SELECT video_id,video_name,speaker,speaker_unit,a.data_id,b.data_name,coverpath,playtime,content,recommend,
+        DATE_FORMAT(recommendtime,'%Y-%m-%d') AS recommendtime,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime ,video_path
+        FROM wkrj_bus_video a,wkrj_bus_data b
+        WHERE a.data_id=b.data_id
+        <if test="video_id != null and video_id != ''">
+            AND video_id = #{video_id}
+        </if>
+       
+    </select>
+    
+    
+    
+    
+    <select id="getVideoFileById" resultType="map" parameterType="Object">
+    	SELECT * FROM `wkrj_bus_videofile`
+    	where 1=1
+    	<if test="video_id != null and video_id != ''">
+            AND video_id = #{video_id}
+        </if>
+    </select>
+    
+    <select id="countVideos" resultType="Long" >
+        SELECT COUNT(*)  FROM wkrj_bus_video  where 1=1 
+        <if test="video_name != null and video_name != ''">
+             AND video_name LIKE CONCAT(CONCAT('%',#{video_name}),'%')
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+        
+        
+    </select>
+   
+    
+    <select id="countRecomVideo" resultType="Long" >
+        SELECT COUNT(*)  FROM wkrj_bus_video  
+        WHERE recommend=1  
+    </select>
+   
+    <update id="addPlayTime" parameterType="String">
+        UPDATE wkrj_bus_video SET playtime = playtime+1
+        WHERE video_id=#{video_id}
+    </update>
+    
+    
+</mapper>

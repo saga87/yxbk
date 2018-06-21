@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystemdev.roledev.dao.WkrjRoleDevDao">
+	
+	
+	<select id="getRoleList" resultType="WkrjRoleDev" parameterType="Object">
+		
+		SELECT role_id,role_name,role_type,role_dept,role_other 
+		FROM `wkrj_sys_role_dev` 
+		<if test="null !=role_dept">
+			where role_dept = #{role_dept}
+		</if>
+		limit #{offset},#{page}
+		
+	
+	</select>
+	
+	<select id="getAllRoleList" resultType="WkrjRoleDev" parameterType="Object">
+		SELECT role_id,role_name,role_type,role_dept,role_other 
+		FROM `wkrj_sys_role_dev` 
+	</select>
+	
+	<select id="getAllPermission" resultType="WkrjPermission" parameterType="Object">
+		SELECT perm_id,module_id,perm_name,perm_flag,perm_icon 
+		FROM `wkrj_sys_permission` 
+	</select>
+	
+	<select id="getRoleById" resultType="WkrjRoleDev" parameterType="Object">
+		
+		SELECT role_id,role_name,role_type,role_dept,role_other 
+		FROM `wkrj_sys_role_dev` 
+		where role_id = #{role_id}
+	
+	</select>
+	
+	<select id="getRoleListCount" resultType="Long" parameterType="Object">
+		
+		SELECT count(role_id) 
+		FROM `wkrj_sys_role_dev` 
+		
+		<if test="null !=role_dept">
+			where role_dept = #{role_dept}
+		</if>
+	</select>
+	
+	<insert id="addRole" parameterType="WkrjRoleDev" >
+		
+		insert wkrj_sys_role_dev(role_id,role_name,role_type,role_dept,role_other)
+		values(#{role_id},#{role_name},#{role_type},#{role_dept},#{role_other});
+	
+	</insert>
+	
+	<insert id="saveRoleMenu" parameterType="WkrjRoleMenuDev" >
+		
+		insert wkrj_sys_role_menu_dev(menu_id,role_id,menu_order)
+		values(#{menu_id},#{role_id},#{menu_order});
+	
+	</insert>
+	
+	<insert id="saveRolePermission" parameterType="WkrjRolePermissionDev" >
+		
+		insert wkrj_sys_role_permission_dev(perm_id,role_id)
+		values(#{perm_id},#{role_id});
+	
+	</insert>
+	
+	<update id="updateRole" parameterType="WkrjRoleDev">
+		
+		update wkrj_sys_role_dev set role_name=#{role_name},role_type=#{role_type},role_dept=#{role_dept},role_other=#{role_other}
+		where role_id=#{role_id}
+		
+	</update>
+	
+	<delete id="delRole">
+		delete from wkrj_sys_role_dev where role_id=#{id}
+	</delete>
+	
+	<delete id="delRoleMenu">
+		delete from wkrj_sys_role_menu_dev where role_id=#{role_id}
+	</delete>
+	
+	<delete id="delRolePermission">
+		delete from wkrj_sys_role_permission_dev where role_id=#{role_id}
+	</delete>
+	
+	<select id="getRoleMenuByRoleId" resultType="WkrjRoleMenuDev" parameterType="Object">
+		
+		SELECT menu_id,role_id,menu_order
+		FROM `wkrj_sys_role_menu_dev` 
+		
+		<if test="null !=role_id and ''!=role_id">
+			where role_id = #{role_id}
+		</if>
+	</select>
+	
+	<select id="getMenuByRoleIds" resultType="WkrjRoleMenuDev" parameterType="Object">
+		
+		SELECT DISTINCT menu_id ,role_id
+		FROM `wkrj_sys_role_menu_dev` 
+		
+		where role_id in
+		
+		<foreach item="item" index="index" collection="role_id" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+        
+        GROUP BY menu_id
+        
+        ORDER BY menu_order
+	
+	</select>
+	
+	<select id="getRolePermissionByRoleId" resultType="WkrjRolePermissionDev" parameterType="Object">
+		
+		SELECT perm_id,role_id
+		FROM `wkrj_sys_role_permission_dev` 
+		
+		<if test="null !=role_id and ''!=role_id">
+			where role_id = #{role_id}
+		</if>
+	</select>
+	
+</mapper>
+

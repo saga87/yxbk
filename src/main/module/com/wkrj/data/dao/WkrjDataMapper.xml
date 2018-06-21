@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.data.dao.WkrjDataDao">
+	
+	<select id="getDataTree" resultType="WkrjData" parameterType="String">
+		
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where true  
+	    <if test="data_parent_id != null and data_parent_id != ''">
+	       and data_parent_id = #{data_parent_id}
+	    </if>
+	    <if test="data_id != null and data_id != ''">
+           and data_id = #{data_id}
+        </if>
+        ORDER BY data_order+0
+	</select>
+	
+	
+	<update id="updateData" parameterType="WkrjData" >
+	
+       update wkrj_bus_data set 
+       		data_name=#{data_name},
+       		data_order=#{data_order},
+       		data_show=#{data_show},
+       		data_parent_id=#{data_parent_id}
+       where data_id=#{data_id}
+       
+    </update>
+    
+    <update id="updateDataShow" parameterType="WkrjData" >
+    
+       update wkrj_bus_data set 
+            data_show=#{data_show}
+       where data_id=#{data_id}
+       
+    </update>
+    
+	<select id="getDataTreeCount" resultType="int" parameterType="String">
+		
+		SELECT count(data_id) 
+		FROM `wkrj_bus_data` 
+		where data_parent_id = #{data_parent_id}
+	
+	</select>
+	
+	<select id="getDataChildMaxByPid" resultType="String" parameterType="String">
+        
+        SELECT IF(ISNULL(MAX(data_id)),'00',MAX(data_id)) data_id FROM wkrj_bus_data
+        where data_parent_id = #{parentId}
+    
+    </select>
+	
+	<insert id="addData" parameterType="WkrjData" >
+		
+		insert wkrj_bus_data
+			(data_id,data_name,data_parent_id,data_show,data_order) 
+		values
+			(#{data_id},#{data_name},#{data_parent_id},#{data_show},#{data_order})
+		
+	</insert>
+	
+	<delete id="delData">
+		delete from wkrj_bus_data where data_id=#{data_id}
+	</delete>
+	
+</mapper>
+

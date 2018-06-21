@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="wfxyaqglpt">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/basic"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/module"/>
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/" source-path="/WebRoot"/>
+        <property name="java-output-path" value="/wfxyaqglpt/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="/kcsp"/>
+    </wb-module>
+</project-modules>

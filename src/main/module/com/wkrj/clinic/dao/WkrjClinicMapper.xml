@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.clinic.dao.WkrjClinicDao">
+	<select id="listClinics" resultType="map" parameterType="Object">
+		select c.clinic_id, c.clinic_name, c.keyword, c.data_id,DATE_FORMAT(c.publish_time,'%Y-%m-%d') as publish_time,
+		c.chinesetitle, c.constitutor, c.provenance, c.correlationguide, c.clinic_type, c.content, c.pageview,c.clinic_path
+		,DATE_FORMAT(c.addtime,'%Y-%m-%d') as addtime,c.coverpath,d.data_name 
+		from wkrj_bus_clinic c,wkrj_bus_data d
+		where 1=1 AND d.data_id=c.data_id
+		
+		<if test="clinic_name != null and clinic_name != ''">
+             AND clinic_name=#{clinic_name}
+        </if>
+		
+		<if test="data_id != null and data_id != ''">
+             AND c.data_id=#{data_id}
+        </if>
+        
+        <if test="clinic_type != null and clinic_type != ''">
+             AND clinic_type=#{clinic_type}
+        </if>
+		
+		ORDER BY CONVERT(clinic_name USING gbk) COLLATE gbk_chinese_ci ASC
+		
+		LIMIT #{offset},#{rows}
+	</select>
+	
+	<select id="countClinics" resultType="Long" >
+        SELECT COUNT(*)  FROM wkrj_bus_clinic  where 1=1 
+        <if test="clinic_name != null and clinic_name != ''">
+             AND clinic_name=#{clinic_name}
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND data_id=#{data_id}
+        </if>
+        
+        <if test="clinic_type != null and clinic_type != ''">
+             AND clinic_type=#{clinic_type}
+        </if>
+        
+    </select>
+    
+    <insert id="addClinic" parameterType="WkrjClinic">
+        INSERT INTO wkrj_bus_clinic(clinic_id, clinic_name, keyword, data_id, publish_time, chinesetitle
+        , constitutor, provenance, correlationguide, clinic_type, content, pageview, addtime,coverpath,clinic_path) 
+        VALUES (#{clinic_id}, #{clinic_name}, #{keyword}, #{data_id}, #{publish_time}, #{chinesetitle}
+        , #{constitutor}, #{provenance}, #{correlationguide}, #{clinic_type}, #{content}, #{pageview}, #{addtime},#{coverpath},#{clinic_path})
+    </insert>
+    
+    <update id="updateClinic" parameterType="WkrjClinic">
+        UPDATE wkrj_bus_clinic SET clinic_name=#{clinic_name},keyword=#{keyword},publish_time=#{publish_time},clinic_path=#{clinic_path},
+        chinesetitle=#{chinesetitle},constitutor=#{constitutor},provenance=#{provenance},clinic_type=#{clinic_type}
+        ,coverpath=#{coverpath},correlationguide=#{correlationguide},content=#{content},data_id=#{data_id}
+        WHERE clinic_id=#{clinic_id}
+    </update>
+    
+    <delete id="deleteClinic">
+        DELETE FROM wkrj_bus_clinic WHERE clinic_id=#{clinic_id}
+    </delete>
+    
+    <select id="listClinicFile" resultType="map" parameterType="Object">
+        SELECT * FROM wkrj_bus_clinicfile 
+        
+        <if test="clinic_id != null and clinic_id != ''">
+             WHERE clinic_id=#{clinic_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+        
+    </select>
+    
+    <insert id="addClinicFile" parameterType="WkrjClinicFile">
+        INSERT INTO wkrj_bus_clinicfile(clinic_id,file_id,file_name,file_size,file_path,file_type)
+        
+        VALUES (#{clinic_id},#{file_id},#{file_name},#{file_size},#{file_path},#{file_type});
+    </insert>
+    
+    
+    <delete id="deleteClinicFile">
+        DELETE FROM wkrj_bus_clinicfile 
+        <if test="clinic_id != null and clinic_id != ''">
+             WHERE clinic_id=#{clinic_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+    </delete>
+    
+	
+</mapper>

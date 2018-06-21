@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystem.school.dao.WkrjSchoolDao">
+	
+	
+	<select id="getSchoolList" resultType="WkrjSchool" parameterType="int">
+	
+		SELECT school_id,school_name
+		FROM `wkrj_schoolmanage` 
+		limit #{offset},#{page}
+	
+	</select>
+	
+	<select id="getSchoolById" resultType="WkrjSchool" parameterType="String">
+	
+		SELECT school_id,school_name
+		FROM `wkrj_schoolmanage` 
+		where school_id=#{school_id}
+	
+	</select>
+	
+	<select id="getAllSchoolList" resultType="WkrjSchool" parameterType="Object">
+	
+		SELECT school_id,school_name
+		FROM `wkrj_schoolmanage` 
+		
+	</select>
+	
+	<select id="getSchoolListCount" resultType="Long" parameterType="Object">
+		
+		SELECT count(school_id) 
+		FROM `wkrj_schoolmanage` 
+		
+	</select>
+	
+	<insert id="addSchool" parameterType="WkrjSchool" >
+		
+		insert wkrj_schoolmanage(school_id,school_name)
+		values(#{school_id},#{school_name})
+	
+	</insert>
+	
+	<update id="updateSchool" parameterType="WkrjSchool">
+		
+		update wkrj_schoolmanage set school_name=#{school_name}
+		where school_id=#{school_id}
+		
+	</update>
+	
+	<delete id="delSchool">
+		delete from wkrj_schoolmanage where school_id=#{school_id}
+	</delete>
+	
+	
+</mapper>
+

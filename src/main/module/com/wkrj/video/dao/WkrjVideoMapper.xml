@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.video.dao.WkrjVideoDao">
+
+	<select id="listVideo" resultType="map" parameterType="Object">
+	    SELECT video_id,video_name,speaker,speaker_unit,a.data_id,data_name,coverpath,playtime,content,recommend,
+        DATE_FORMAT(recommendtime,'%Y-%m-%d') AS recommendtime,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime,video_path 
+        FROM wkrj_bus_video a,wkrj_bus_data b
+        WHERE a.data_id=b.data_id
+	    <if test="video_name != null and video_name != ''">
+	       AND video_name=#{video_name}
+	    </if>
+        <if test="video_id != null and video_id != ''">
+             AND video_id=#{video_id}
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND a.data_id LIKE CONCAT(CONCAT('%',#{data_id}),'%')
+        </if>
+	    ORDER BY CONVERT(video_name USING gbk) COLLATE gbk_chinese_ci ASC 
+        LIMIT #{offset},#{rows}
+	</select>
+    
+    <select id="countVideo" resultType="Long" parameterType="Object">
+        SELECT COUNT(*)   FROM wkrj_bus_video a,wkrj_bus_data b
+        WHERE a.data_id=b.data_id 
+        <if test="video_name != null and video_name != ''">
+           AND video_name=#{video_name}
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND a.data_id LIKE CONCAT(CONCAT('%',#{data_id}),'%')
+        </if>
+    </select>
+    
+    <insert id="addVideo" parameterType="WkrjVideo">
+        INSERT INTO wkrj_bus_video(video_id,speaker,speaker_unit,video_name,data_id,coverpath,recommend,
+        recommendtime,content,addtime,video_path)
+        
+        VALUES (#{video_id},#{speaker},#{speaker_unit},#{video_name},#{data_id},#{coverpath},#{recommend},
+        #{recommendtime},#{content},#{addtime},#{video_path});
+    </insert>
+    
+    <update id="updateVideo" parameterType="WkrjVideo">
+        UPDATE wkrj_bus_video SET speaker=#{speaker},speaker_unit=#{speaker_unit},coverpath=#{coverpath},
+        data_id=#{data_id},video_name=#{video_name},recommend=#{recommend},
+        content=#{content},video_path=#{video_path}
+        WHERE video_id=#{video_id}
+    </update>
+    
+    <update id="updateRecommend" parameterType="WkrjVideo">
+        UPDATE wkrj_bus_video SET recommend=#{recommend},
+        recommendtime=#{recommendtime}
+        WHERE video_id=#{video_id}
+    </update>
+    
+    <delete id="deleVideo">
+        DELETE FROM wkrj_bus_video WHERE video_id=#{video_id}
+    </delete>
+    
+    <select id="listVideoFile" resultType="map" parameterType="Object">
+        SELECT * FROM wkrj_bus_videofile
+        <if test="video_id != null and video_id != ''">
+             WHERE video_id=#{video_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+    </select>
+    
+    <insert id="addVideoFile" parameterType="WkrjVideoFile">
+        INSERT INTO wkrj_bus_videofile(video_id,file_id,file_name,file_size,file_path,file_type)
+        
+        VALUES (#{video_id},#{file_id},#{file_name},#{file_size},#{file_path},#{file_type});
+    </insert>
+    
+   <update id="updateVideoFile" parameterType="WkrjVideoFile">
+        UPDATE wkrj_bus_video SET file_name=#{file_name},
+        file_size=#{file_size},file_path=#{file_path},file_type=#{file_type}
+        WHERE file_id=#{file_id}
+    </update>
+    
+    <delete id="deleVideoFile">
+        DELETE FROM wkrj_bus_videofile
+        <if test="video_id != null and video_id != ''">
+             WHERE video_id=#{video_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+    </delete>
+    
+</mapper>

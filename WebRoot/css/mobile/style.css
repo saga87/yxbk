@@ -1,0 +1,913 @@
+@charset "utf-8";
+/**样式初始化**/
+body {
+	width:100%;
+	overflow-x:hidden;
+	background:#f7f7ef;
+	font:16px "微软雅黑";
+}
+body,ul,li,ol,li,dl,dt,dd,p,a {
+	margin:0;
+	padding:0;
+}
+ul,li {
+	list-style:none;
+}
+img {
+	border:0 none;
+	vertical-align: top;
+}
+a,a:hover {
+	color:#333;
+	text-decoration:none;
+}
+a,input,img,select,textarea {
+	outline:none;
+}
+input[type="button"], input[type="submit"], input[type="reset"], textarea, button, select{
+	-webkit-appearance:none;
+}
+h1{
+	font-weight:100;
+	margin:0;
+	text-align:center;
+}
+/**CommonStyle**/
+.clearfix:before,.clearfix:after {
+	content:"";
+	display:table;
+}
+.clearfix:after {
+	clear:both;
+}
+.clearfix {
+	*zoom:1;
+}
+.clear {
+	clear:both;
+}
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.Ovis {
+	overflow:hidden;
+}
+.Odis {
+	display:block;
+}
+
+.W640{
+	max-width:640px;
+	margin:auto;
+}
+.f7{
+	background:#f7f7ef;
+}
+.Heit10{
+    border-top:solid 1px #CCC;
+    height:10px;
+}
+.Heit41{
+	height:41px;
+}
+.Heit50{
+	height:50px;
+}
+.Heit60{
+	height:60px;
+}
+.Heit90{
+	height:90px;
+}
+.Pad10{
+	padding:10px;
+}
+.PadTb10{
+	padding:10px 0;
+}
+.Bsh{
+	box-shadow:0px 0px 8px #909090;
+}
+.Bsh2{
+	box-shadow:0px 0px 3px #3579b3;
+}
+.headerBar{
+	height:41px;
+	width:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:999;
+}
+.header{
+	background:#408ff4;
+	line-height:41px;
+	position:relative;
+}
+.header h1{
+	color:#FFF;
+	font-size:1.2em;
+}
+.header a{
+	color:#FFF;
+	display:inline-block;
+	position:absolute;
+	top:0;
+	z-index:2;
+}
+.header a:first-child{
+	left:10px;
+}
+.header a:last-child{
+	right:10px;
+}
+.headerSmall{
+	background:#FFF;
+	color:#1a1a1a;
+	line-height:41px;
+}
+.headerSmall h1{
+	font-size:1em;
+}
+
+.LoginForm{
+	padding:0 10px;
+}
+.LoginForm p{
+	margin:10px 0 0 0;
+}
+.LeaveForm div.XaddT{
+	padding:6px 0 0 0;
+}
+.LoginForm p input, .LeaveForm p input, .LeaveForm .CommonInp select{
+	border:solid 1px #c6c6c6;
+	border-radius:4px;
+	font-family:'微软雅黑';
+	font-size:1em;
+}
+.LeaveForm .CommonInp textarea{
+	border:solid 1px #CCC;
+	border-radius:4px;
+	font-family:'微软雅黑';
+	font-size:1em;
+	height:80px;
+	width:98%;
+	padding:1%;
+	resize:none;
+}
+.LoginForm p input{
+	width:90%;
+	padding:8px 0 8px 10%;
+}
+.LeaveForm p input{
+	width:100%;
+	padding:8px 0;
+	text-indent:10px;
+}
+.LoginForm p input.cur{
+	border:solid 1px #ff8080;
+}
+.LoginForm p.username input{
+	background:url(../../images/mobile/userIco.png) no-repeat 5px 50% #FFF;
+	background-size:25px;
+}
+.LoginForm p.password input{
+	background:url(../../images/mobile/passIco.png) no-repeat 5px 50% #FFF;
+	background-size:25px;
+}
+.LoginForm p.Inpsub input{
+	background:#408ff4;
+	border:0;
+	border-bottom:3px solid #316cb9;
+	color:#FFF;
+	width:100%;
+	padding:8px 0;
+}
+.LeaveForm .CommonInp select{
+	background:#FFF;
+	width:100%;
+	padding:7px 5px;
+}
+.LoginForm p.File, .InfoUpInp p.File{
+	position:relative;
+}
+.LoginForm p.File input[type='text'], .InfoUpInp p.File input[type='text']{
+	width:65%;
+}
+.InfoUpInp p.File input[type='text']{
+	border:0;
+	text-indent:0
+}
+.LoginForm p.File input[type='file'], .InfoUpInp p.File input[type='file']{
+	width:28%;
+	position:absolute;
+	right:0;
+	top:0;
+	z-index:5;
+	opacity:0;
+}
+.LoginForm p.File b, .InfoUpInp p.File b{
+	background:#408ff4;
+	border-bottom:solid 2px #316cb9;
+	border-radius:4px;
+	color:#FFF;
+	display:inline-block;
+	float:right;
+	font-weight:100;
+	width:28%;
+	padding:8px 0;
+	vertical-align:top;
+	text-align:center;
+}
+.LeaveForm .CommonInpsub{
+	margin-bottom:20px;
+	overflow:hidden;
+}
+.LeaveForm .CommonInpsub input{
+	border:0;
+	color:#FFF;
+	width:48%;
+	padding:8px 0;
+}
+.LeaveForm .CommonInpsub input.sub1{
+	background:#408ff4;
+	border-bottom:solid 2px #316cb9;
+}
+.LeaveForm .CommonInpsub input.sub2{
+	background:#999999;
+	border-bottom:solid 2px #747374;
+}
+.InfoUpInp{
+	background:#FFF;
+	border-bottom:solid 1px #CCC;
+	color:#a6a6a6;
+	font-family:'微软雅黑';
+	padding:10px;
+}
+.InfoUpInp span{
+	color:#666;
+}
+.InfoUpInp input, .InfoUpInp textarea{
+	border:0;
+	color:#a6a6a6;
+	font-family:'微软雅黑';
+	font-size:1em;
+	width:75%;
+}
+.InfoUpInp textarea{
+	resize:none;
+	vertical-align:top;
+}
+.InfoUpInp p.File input[type='button']{
+	color:#FFF;
+	margin:10px 0 0 0;
+}
+.InfoUpInp p.File input[type='button'].cur{
+	background:#408ff4;
+}
+.InfoUpInp b{
+	font-weight:100;
+}
+.InfoUp p.CommonInpsub{
+	margin-top:20px;
+	margin-bottom:20px;
+	padding:0 10px;
+}
+.InfoUpInp i{
+	color:#262626;
+	font-style:normal;
+}
+.InfoUpInp a{
+	background:#408ff4;
+	border-bottom:solid 2px #316cb9;
+	border-radius:3px;
+	color:#FFF;
+	float:right;
+	padding:3px 8px;
+	margin-top:-4px;
+}
+.InfoContent{
+	background:#FFF
+}
+.InfoArTit{
+	border-bottom:dashed 1px #CCC;
+	color:#1a1a1a;
+	font-family:'微软雅黑';
+	padding:8px 10px;
+}
+.InfoArtCon{
+	border-bottom:solid 1px #CCC;
+	color:#1a1a1a;
+	padding:8px 10px;
+	text-indent:2em;
+}
+.UpfileName{
+	border-bottom:solid 1px #CCC;
+	color:#666;
+	padding:8px 10px;
+}
+.UpfileList ul li{
+	border-bottom:solid 1px #CCC;
+	color:#1a1a1a;
+	line-height:29px;
+	overflow:hidden;
+	padding:5px 10px;
+}
+.UpfileList ul li span{
+	border:solid 1px #CCC;
+	border-radius:50%;
+	display:inline-block;
+	height:24px;
+	line-height:24px;
+	width:24px;
+	margin:0 5px 0 0;
+	text-align:center;
+	vertical-align:middle;
+}
+.UpfileList ul li a{
+	background:#408ff4;
+	border-bottom:solid 2px #316cb9;
+	border-radius:3px;
+	color:#FFF;
+	float:right;
+	height:23px;
+	line-height:23px;
+	padding:3px 12px;
+}
+
+.IndexHeadBar{
+	padding:1.2em 5%;
+	overflow:hidden;
+}
+.IndexHead{
+	background:#a5cced;
+	border-radius:50%;
+	height:70px;
+	width:70px;
+}
+.IndexHead img{
+	border-radius:50%;
+	height:50px;
+	width:50px;
+	padding:10px;
+	-webkit-animation:Hrotate 1.5s ease;
+}
+.IndexWarp{
+	height:100%;
+	width:100%;
+	overflow-x:hidden;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:1;
+}
+.WelUser{
+	color:#FFF;
+	font-size:18px;
+	line-height:70px;
+	margin:0 0 0 20px;
+}
+.IndexBox{
+	width:100%;
+	position:absolute;
+	top:41px;
+	z-index:10;
+}
+.IndexBg{
+	
+	background:url(../../images/mobile/IndexBg.jpg) no-repeat center top;
+	/* background-size:100%;
+	background-attachment: fixed; */
+	
+}
+.IndexMain{
+	font-size:0.95em;
+	overflow:hidden;
+	padding:1em 10px;
+}
+.IndexMain ul li{
+	float:left;
+	width:50%;
+	margin-bottom:15px;
+	text-align:center;
+}
+.IndexMain ul li span{
+	display:block;
+}
+.IndexMain ul li b{
+	background:#6ca9d9;
+	border-radius:25px;
+	color:#FFF;
+	display:inline-block;
+	font-weight:100;
+	line-height:25px;
+	margin-top:10px;
+	width:80%;
+}
+.IndexMain ul li img{
+	width:45%;
+}
+.panel{
+	background:#4092d7;
+	display:none;
+	width:70%;
+	overflow-y:auto;
+}
+.panel a{
+	color:#FFF;
+}
+.panel > ul{
+	padding:50px 0 0 0;
+}
+.panel > ul > li{
+	border-bottom:solid 1px #65a7e0;
+	line-height:24px;
+}
+.panel > ul > li img{
+	height:24px;
+	padding:0 5px 0 0;
+}
+.panel > ul > li > a, .panel .Second > li > a{
+	color:#FFF;
+	display:block;
+	padding:6px 0 6px 10px;
+}
+.panel .Second, .panel .third, .panel .fourth  {
+	display:none;
+}
+.panel .third a{
+    padding:0 0 0 20px;
+}
+.panel .fourth a{
+    padding:0 0 0 30px;
+}
+.panel .Second > li, .panel .third > li, .panel .fourth > li{
+	border-bottom:solid 1px #65a7e0;
+	line-height:24px;
+}
+
+.Flist{
+	background:#FFF;
+	width:100%;
+}
+.Flist ul li{
+	border-right:solid 1px #CCC;
+	border-bottom:solid 1px #CCC;
+	box-sizing:border-box;
+	width:33.33%;
+	float:left;
+}
+.Flist ul li:nth-child(3n){
+	border-right:0;
+}
+.Flist ul li a{
+	display:block;
+	padding:100px 0 30px 0;
+	text-align:center;
+}
+.Flist ul li:first-child a{
+	background:url(../../images/mobile/Fico1.png) no-repeat center 40px;
+	background-size:35px;
+}
+.Flist ul li:nth-child(2) a{
+	background:url(../../images/mobile/Fico2.png) no-repeat center 40px;
+	background-size:35px;
+}
+.Flist ul li:nth-child(3) a{
+	background:url(../../images/mobile/Fico3.png) no-repeat center 40px;
+	background-size:35px;
+}
+.Flist ul li:nth-child(4) a{
+	background:url(../../images/mobile/Fico4.png) no-repeat center 40px;
+	background-size:35px;
+}
+.Flist ul li:nth-child(5) a{
+	background:url(../../images/mobile/Fico5.png) no-repeat center 40px;
+	background-size:35px;
+}
+.Flist ul li:last-child a{
+	background:url(../../images/mobile/Fico6.png) no-repeat center 40px;
+	background-size:35px;
+}
+
+.ListTxt{
+	background:#FFF;
+	border-top:solid 1px #CCC;
+	width:100%;
+	margin-top:20px;
+}
+.ListTxt ul li{
+	border-bottom:solid 1px #CCC;
+	height:2.5rem;
+	line-height:2.5rem;
+}
+.ListTxt ul li a{
+	display:block;
+	padding:0 0.8rem;
+}
+.ListTxt ul li span{
+	background:url(../../images/mobile/ListExitIco.png) no-repeat;
+	background-size:100%;
+	float:right;
+	height:30px;
+	width:30px;
+	margin:5px 10px 0 0;
+}
+
+.Paginter{
+	padding:0.5rem 0;
+	text-align:center;
+}
+.Paginter ul li{
+	border:solid 1px #CCC;
+	display:inline-block;
+}
+.Paginter ul li a{
+	background:#FFF;
+	display:block;
+	padding:3px 8px;
+}
+
+.successPic{
+	margin:18% 0 0 0;
+	text-align:center;
+}
+.successPic img{
+	width:150px;
+}
+.errorBlack{
+	width:100%;
+	text-align:center;
+	position:fixed;
+	bottom:10%;
+	left:0;
+	z-index:9;
+}
+.errorBlack a{
+	background:#408ff4;
+	border-bottom:solid 2px #316cb9;
+	border-radius:5px;
+	color:#FFF;
+	display:inline-block;
+	width:150px;
+	padding:8px 0;
+}
+
+.TextItem{
+	background:#FFF;
+	border-top:solid 1px #CCC;
+	color:#666;
+	overflow:hidden;
+}
+.TextItem b{
+	color:#1a1a1a;
+	font-weight:100;
+	float:right;
+}
+.TextItem .TimeQ{
+	height:60px;
+	line-height:60px;
+	position:relative;
+}
+.TextItem .TimeQ span{
+	background:#FFF;
+	display:inline-block;
+	padding:0 10px;
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:2
+}
+.TextItem .TimeQ p{
+	float:right;
+	width:100%;
+}
+.TextItem .TimeQ p b{
+	border-bottom:solid 1px #CCC;
+	display:block;
+	height:30px;
+	line-height:30px;
+	width:100%;
+	padding:0 10px 0 0;
+	text-align:right;
+}
+.TextItem .TimeQ p b:last-child{
+	border:0;
+}
+.ItemName{
+	border-top:solid 1px #CCC;
+	border-bottom:solid 1px #CCC;
+	padding:15px 10px;
+}
+.Opin{
+	background:#FFF;
+	border-bottom:solid 1px #CCC;
+	padding:3px 10px;
+}
+.Opin span{
+	color:#666666;
+	display:block;
+	padding:5px 0;
+}
+.Opin span:nth-child(2){
+	color:#1a1a1a;
+	text-indent:2rem;
+}
+.Opin span:last-child{
+	text-align:right;
+}
+/* 2016-5-24 sjc add start */
+.MateForm p.File input[type='file']{
+    width:28%;
+    position:absolute;
+    right:0;
+    top:0;
+    z-index:5;
+    opacity:0;
+}
+.MateForm p.File b{
+    background:#408ff4;
+    border-bottom:solid 2px #316cb9;
+    border-radius:4px;
+    color:#FFF;
+    display:inline-block;
+    float:right;
+    font-weight:100;
+    width:28%;
+    padding:8px 0;
+    vertical-align:top;
+    text-align:center;
+}
+.MateForm p.File input[type='text']{
+    width:65%;
+}
+/* 2016-5-24 sjc add end */
+/**新添加样式**/
+.TextItem i{
+    color:#1a1a1a;
+    font-style:normal;
+}
+.UpdateNews ul li a{
+    background-image:url(../../images/mobile/Upico1.png);
+    background-repeat:no-repeat;
+    background-position:0.8em 50%;
+    background-size:25px;
+    padding:0 0 0 2.8em;
+}
+.UpdateNews ul li a.Upico2{
+    background-image:url(../../images/mobile/Upico2.png);
+}
+.DeleteTileBar{
+    display:none;
+    width:100%;
+    position:fixed;
+    top:50%;
+    left:0;
+    z-index:99;
+}
+.DeleteTile b{
+    border-radius:5px;
+    color:#FFF;
+    display:inline-block;
+    font-weight:100;
+    width:46%;
+    margin:0 2%;
+    padding:10px 0;
+    text-align:center;
+
+}
+.DeleteTile b:first-child{
+    background:#408ff4;
+    border-bottom:solid 2px #316cb9;
+
+}
+.DeleteTile b:last-child{
+    background:#999;
+    border-bottom:solid 2px #747374;
+
+}
+.SysLoginBar{
+    height:100%;
+    width:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:5;
+}
+.SysLogin{
+    background:url(../../images/mobile/SystemBg.jpg) no-repeat 0% 100%;
+    background-size:cover;
+    height:100%;
+}
+.SysLoginLogo{
+    padding:5% 0 0 0;
+    text-align:center;
+}
+.SysLoginLogo img{
+    width:40%
+}
+.SysLoginForm{
+    padding:30px 10px 0;
+}
+.SysLoginForm p{
+    margin:10px 0 0 0;
+}
+.SysLoginForm input{
+    border:0;
+    border:solid 1px #c3c5c6;
+    border-radius:5px;
+    font-family:'微软雅黑';
+    font-size:1em;
+    width:90%;
+    padding:8px 0 8px 10%;
+}
+.SysLoginForm input.cur{
+    border:solid 1px #ff8080;
+}
+.SysLoginForm p.Sysuser input{
+    background:url(../../images/mobile/userIco.png) no-repeat 2% 50% #FFF;
+    background-size:25px;
+}
+.SysLoginForm p.Syspass input{
+    background:url(../../images/mobile/passIco.png) no-repeat 2% 50% #FFF;
+    background-size:25px;
+}
+.SysLoginForm p.Syssub input{
+    background:#408ff4;
+    border:0;
+    border-bottom:solid 2px #316cb9;
+    color:#FFF;
+    width:100%;
+    padding:8px 0;
+}
+.MateForm{
+    padding:15px 0 0 0;
+}
+.MateForm p{
+    padding:0 10px 10px;
+}
+.MateForm p.bline{
+    border-bottom:solid 1px #CCC;
+}
+.MateForm p input{
+    border:solid 1px #CCC;
+    border-radius:5px;
+    font-family:'微软雅黑';
+    font-size:1em;
+    padding:8px 1%;
+    width:98%;
+}
+.addMate{
+    border-bottom:solid 1px #CCC;
+    padding:10px 0 0 0;
+}
+.AddSub{
+    color:#408ff4;
+    padding:10px 0;
+    text-align:center;
+}
+.AddSub img{
+    padding:0 5px 0 0;
+}
+.FormSub{
+    padding:15px 10px;
+    overflow:hidden;
+}
+.FormSub input{
+    border:0;
+    border-radius:5px;
+    color:#FFF;
+    font-family:'微软雅黑';
+    font-size:1em;
+    width:45%;
+    padding:8px 0;
+}
+.FormSub input[type='submit'], .FormSub input[type='button']{
+    background:#408ff4;
+    border-bottom:solid 2px #316cb9;
+    float:left;
+}
+.FormSub input[type='reset']{
+    background:#999;
+    border-bottom:solid 2px #747374;
+    float:right;
+}
+/**新添加样式结束**/
+.Msc{
+	background:rgba(0,0,0,0.1);
+	display:none;
+	height:100%;
+	width:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:11;
+}
+.adDiv{
+	display:none;
+	position:fixed;
+	bottom:30px;
+	left:0;
+	z-index:12;
+	width:100%;
+}
+.adDiv p{
+	padding:10px;
+}
+.adDiv p textarea{
+	border:solid 1px #CCC;
+	border-radius:5px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	height:4rem;
+	width:95.5%;
+	padding:2%;
+}
+.adDiv p:nth-child(2){
+	display:none;
+}
+.adDiv p:last-child{
+	padding:0 10px 15px;
+	overflow:hidden;
+}
+.adDiv p:last-child input{
+	border:0;
+	border-radius:5px;
+	color:#FFF;
+	font-family:"微软雅黑";
+	font-size:14px;
+	width:45%;
+	padding:5px 0;
+}
+.adDiv p:last-child input:first-child{
+	background:#408ff4;
+	border-bottom:solid 3px #316cb9;
+	float:left;
+}
+.adDiv p:last-child input:last-child{
+	background:#999999;
+	border-bottom:solid 3px #747374;
+	float:right;
+}
+footer{
+	width:100%;
+	position:fixed;
+	bottom:0;
+	left:0;
+	z-index:99;
+}
+footer .menu, footer .ListBtm{
+	background:#FFF;
+	border-top:solid 1px #CCC;
+	display:-webkit-box;
+	display:box;
+	font-size:0.9rem;
+}
+footer .menu a ,footer .ListBtm a{
+	border-right:solid 1px #CCC;
+	display:block;
+	-webkit-box-flex:1;
+	padding:0.5rem 0;
+	text-align:center;
+	font-size:12px;
+}
+footer .menu a:first-child{
+	background:url(../../images/mobile/checkIco.png) no-repeat 10% 50%;
+	background-size:23px;
+}
+footer .menu a:nth-child(2){
+	background:url(../../images/mobile/backIco.png) no-repeat 10% 50%;
+	background-size:23px;
+}
+footer .menu a:last-child{
+	background:url(../../images/mobile/exitIco.png) no-repeat 10% 50%;
+	background-size:23px;
+}
+footer .menu a:last-child, footer .ListBtm a:last-child{
+	border:0;
+}
+footer .ListBtm a{
+	padding:30px 0 5px 0;
+	font-size:12px;
+}
+footer .ListBtm a:first-child{
+	background:url(../../images/mobile/BtnIco1.png) no-repeat 50% 5px;
+	background-size:20px;
+}
+footer .ListBtm a:nth-child(2){
+	background:url(../../images/mobile/BtnIco2.png) no-repeat 50% 5px;
+	background-size:20px;
+}
+footer .ListBtm a:last-child{
+	background:url(../../images/mobile/BtnIco3.png) no-repeat 50% 5px;
+	background-size:20px;
+}
+
+
+@-webkit-keyframes Hrotate{
+	from{-webkit-transform:rotate(0deg)}
+	to{-webkit-transform:rotate(360deg)}
+}

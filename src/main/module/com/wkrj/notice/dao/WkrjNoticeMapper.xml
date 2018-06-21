@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.notice.dao.WkrjNoticeDao">
+
+	<select id="listNotice" resultType="map" parameterType="Object">
+	    SELECT notice_id,notice_title,notice_content,
+	    DATE_FORMAT(addtime,'%Y-%m-%d' ) AS addtime FROM wkrj_bus_notice 
+	    WHERE 1=1 
+	    ORDER BY addtime DESC
+        LIMIT #{offset},#{rows}
+	</select>
+    
+    <select id="countNotice" resultType="Long" parameterType="Object">
+        SELECT COUNT(*)  FROM wkrj_bus_notice 
+    </select>
+    
+    <insert id="addNotice" parameterType="WkrjNotice">
+        INSERT INTO wkrj_bus_notice(notice_id,notice_title,notice_content,addtime)
+        
+        VALUES (#{notice_id},#{notice_title},#{notice_content},#{addtime});
+    </insert>
+    
+    <update id="updateNotice" parameterType="WkrjNotice">
+        UPDATE wkrj_bus_notice SET notice_title=#{notice_title},notice_content=#{notice_content}
+        WHERE notice_id=#{notice_id}
+    </update>
+    
+    <delete id="deleNotice">
+        DELETE FROM wkrj_bus_notice WHERE notice_id=#{notice_id}
+    </delete>
+    
+</mapper>

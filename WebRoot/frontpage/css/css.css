@@ -1,0 +1,237 @@
+ .layui-layout-admin .layui-logo{
+    color: #2b5990;
+    font-size: 22px;
+    background: #f2f2f2;
+    line-height: 99px;
+    width: 280px;
+}
+.layui-header{
+	height: 99px;
+}
+.layui-layout-admin .layui-side{
+	top: 99px;
+}
+.layui-layout-admin .layui-header{
+	background-color: #fff;
+}
+.layui-layout-admin .layui-body{
+	top: 99px;
+}
+
+.layui-nav1 .layui-nav-item a{
+	height: 90px;
+    line-height: 90px;
+}
+
+.layui-nav-child a{
+	background: #3877c2;
+	line-height: 65px;
+	height: 65px;
+}
+.layui-nav-item .layui-nav-more {
+    top: 24px;
+}
+
+.layui-nav-tree .layui-nav-item a {
+	line-height: 65px;
+	height: 65px;
+
+}
+.layui-bg-black {
+    background-color: #3877c2!important;
+}
+.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover {
+    background-color: #f2f2f2;
+    color: #2b5990;
+}
+.layui-nav-tree .layui-nav-bar {
+    background-color: #f2f2f2;
+}
+.layui-nav-tree .layui-nav-child a:hover{
+	background-color: #f2f2f2;
+    color: #2b5990;
+}  
+.layui-nav-tree{
+	width: 280px;
+}
+.layui-layout-admin .layui-side {
+    width: 280px;
+}
+.layui-side-scroll {
+    width: 300px;
+}
+.layui-body{
+	left: 280px;
+	background: #f2f2f2;
+}
+.layui-nav-tree .layui-nav-child a{
+	text-align: center;
+}
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
+	background-color: #3877c2;
+}
+.layui-layout-left {
+    left: 280px;
+}
+.ba_2b{
+	background: #2b5990!important;
+}
+.ma_t38{margin-top: 38px;}
+.ma_r{margin-right: 10px}
+.co_33{color: #333!important}
+.bor_b{border-bottom: 1px solid #bababa;}
+.side_div{
+	margin-left: -10px;
+	padding: 23px 0;
+	background: #3877c2;
+	text-align: center;
+}
+
+
+#marquee1 {
+	position: absolute;
+    left: 50px;
+    top: 21px;
+    width: 750px;
+    height: 49px;
+    overflow: hidden;
+    border: 1px solid #3877c2;
+    line-height: 49px;
+}
+#marquee1 ul li {
+	float: left;
+    padding: 0 10px;
+    list-style-type: disc;
+    margin: 0 15px;
+    color: #3877c2;
+}
+#marquee1 ul li span{
+	color:#333333;
+	font-size: 16px;
+}
+.box li{
+	padding: 10px 0;
+    background: #fff;
+    border-bottom: 1px solid #cccccc;
+    margin: 0 10px;
+}
+.padd_ba{
+	padding-bottom: 15px;
+    background: #fff;
+}
+.box_right li {
+	background: url(../imgs/xin.png) no-repeat 4px;
+    padding-left: 39px;
+	cursor:pointer ;
+}
+.box_right  .xin{
+	background: url(../imgs/xin1.png) no-repeat 4px;
+}
+.box_right_text{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.box_ull li{
+	width: calc(92% / 5 - 5px);
+	float: left;
+	margin:0 10px;
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	padding-bottom:5px; 
+	cursor:pointer ;
+	box-shadow: 1px 9px 7px rgba(136, 136, 136, 0.38);
+}
+.box_ull li div{
+	padding: 10px;
+}
+.box_ull li:hover{
+	border-bottom: 1px solid #3877c2;
+}
+.hot_ul li{
+	width: calc(92% / 4 - 5px);
+	margin-bottom: 15px;
+
+}
+.bo_f{
+	padding: 6px 15px;
+    border-radius: 21px;
+    display: inline-block;
+}
+.bofa{
+	background: #e6e6e6;
+	border-top:1px solid #3877c2;
+	
+}
+#bofa li{
+	color: #666666;
+	font-size: 15px;
+	height: 4.5vh;
+	line-height:4.5vh;
+	border-bottom: 1px solid #999999;
+	padding-bottom: 5px;
+	margin:  0 15px;
+	cursor: pointer;
+}
+#bofa li:hover{
+	color: #3877c2;
+}
+.text_span span{
+	padding: 1px 8px;
+	display: inline-block;
+	margin:0 5px;
+	background: #e6e6e6;
+	color: #333333;
+	border-radius: 0.5em;
+	cursor: pointer;
+}
+.text_span span:hover{
+	background: #3877c2;
+	color: #fff;
+}
+#people p{
+	line-height: 29px;
+}
+
+@media screen and (min-width: 900px) and (max-width:1506px){
+	.box{
+		height: 60vh;
+		background: #fff;
+	}
+	#box_right li{
+		height: 6vh;
+		line-height: 6vh;
+	}
+	#vi{
+		width: 59%;
+		height: 52vh;
+	}
+	#bofa li{
+		height: 5.6vh;
+		line-height: 5.6vh;
+	}
+}
+
+@media screen and  (min-width: 1507px) and (max-width:1799px){
+	.box{
+		height: 41vh;
+		 background: #fff;
+	}
+	#vi{
+		height: 51vh;
+	}
+}
+
+@media screen and (min-width: 1800px) and (max-width: 2000px){
+	.box{
+		height: 55vh;
+		background: #fff;
+	}
+	#vi{
+		width: 70%;
+	}
+	#bofa li{
+		height: 5.6vh;
+		line-height: 5.6vh;
+	}
+}

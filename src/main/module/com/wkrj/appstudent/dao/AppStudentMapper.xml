@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.appstudent.dao.AppStudentDao">
+
+	<insert id="addStudent" parameterType="AppStudent" >
+		insert into wkrj_student(student_id,name,sex,cs_date,idcard,student_num,
+			   nj,jb,bj,height,weight,email,input_time)
+		values(#{student_id},#{name},#{sex},#{cs_date},#{idcard},#{student_num},
+			   #{nj},#{jb},#{bj},#{height},#{weight},#{email},#{input_time});
+	</insert>
+	<update id="updateStudent" parameterType="AppStudent">
+	   update wkrj_student set 
+	       name=#{name},
+	       sex=#{sex},
+	       cs_date=#{cs_date},
+	       idcard=#{idcard},
+	       student_num=#{student_num},
+	       nj=#{nj},
+	       jb=#{jb},
+	       bj=#{bj},
+	       height=#{height},
+	       weight=#{weight},
+	       email=#{email}
+	       where student_id = #{student_id}
+	</update>
+	<update id="updateAppStudent" parameterType="AppStudent">
+	   update wkrj_student set 
+	       height=#{height},
+	       weight=#{weight}
+	       where student_id = #{student_id}
+	</update>
+	<select id="getStudentList" resultType="map" parameterType="Object">
+	   select a.*,DATE_FORMAT(a.cs_date,'%Y-%m-%d') as birthdate,DATE_FORMAT(a.input_time,'%Y-%m-%d') as inputtime from wkrj_student a
+	</select>
+	<select id="getStudentInfo" resultType="map" parameterType="Object">
+	  SELECT height,weight,sex FROM `wkrj_student` WHERE student_id = #{student_id};
+	</select>
+	
+	<select id="getStudentListCount" resultType="Long" parameterType="Object">
+	   select count(*) from wkrj_student	
+	</select>
+	<select id="checkSNum" resultType="Long" parameterType="Object">
+	   select count(*) from wkrj_student where student_num = #{studentNum}
+	</select>
+	
+	<delete id="delStudent">
+	   delete from wkrj_student where student_id = #{id}
+	</delete>
+	
+</mapper>
+

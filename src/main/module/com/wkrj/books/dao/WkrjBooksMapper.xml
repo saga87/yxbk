@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.books.dao.WkrjBooksDao">
+
+	<select id="listBooks" resultType="map" parameterType="Object">
+	    SELECT books_id,books_name,books_author,publishinghouse,pagination,coverpath,languagetype,content,pageview,
+	    DATE_FORMAT(publishing_time,'%Y-%m-%d') AS publishing_time,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime,books_path,
+	    a.data_id,data_name
+	    FROM wkrj_bus_books a ,wkrj_bus_data b
+	    WHERE a.data_id=b.data_id 
+	    <if test="books_name != null and books_name != ''">
+	       AND books_name=#{books_name}
+	    </if>
+        <if test="books_id != null and books_id != ''">
+             AND books_id=#{books_id}
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND a.data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+	    ORDER BY CONVERT(books_name USING gbk) COLLATE gbk_chinese_ci ASC 
+        LIMIT #{offset},#{rows}
+	</select>
+    
+    <select id="countBooks" resultType="Long" parameterType="Object">
+        SELECT COUNT(*)  FROM wkrj_bus_books WHERE 1=1 
+        <if test="books_name != null and books_name != ''">
+           AND books_name=#{books_name}
+        </if>
+    </select>
+    
+    
+    <insert id="addBooks" parameterType="WkrjBooks">
+        INSERT INTO wkrj_bus_books(books_id,books_author,publishinghouse,books_name,publishing_time,coverpath,pagination,
+        languagetype,content,addtime,books_path,data_id)
+        
+        VALUES (#{books_id},#{books_author},#{publishinghouse},#{books_name},#{publishing_time},#{coverpath},#{pagination},
+        #{languagetype},#{content},#{addtime},#{books_path},#{data_id});
+    </insert>
+    
+    <update id="updateBooks" parameterType="WkrjBooks">
+        UPDATE wkrj_bus_books SET books_author=#{books_author},publishinghouse=#{publishinghouse},coverpath=#{coverpath},
+        publishing_time=#{publishing_time},books_name=#{books_name},pagination=#{pagination},
+        languagetype=#{languagetype},content=#{content},books_path=#{books_path},data_id=#{data_id}
+        WHERE books_id=#{books_id}
+    </update>
+    
+    <delete id="deleBooks">
+        DELETE FROM wkrj_bus_books WHERE books_id=#{books_id}
+    </delete>
+    
+    <select id="listBooksFile" resultType="map" parameterType="Object">
+        SELECT * FROM wkrj_bus_booksfile
+        <if test="books_id != null and books_id != ''">
+             WHERE books_id=#{books_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+    </select>
+    
+    <insert id="addBooksFile" parameterType="WkrjBooksFile">
+        INSERT INTO wkrj_bus_booksfile(books_id,file_id,file_name,file_size,file_path,file_type)
+        
+        VALUES (#{books_id},#{file_id},#{file_name},#{file_size},#{file_path},#{file_type});
+    </insert>
+    
+   <update id="updateBooksFile" parameterType="WkrjBooksFile">
+        UPDATE wkrj_bus_books SET file_name=#{file_name},
+        file_size=#{file_size},file_path=#{file_path},file_type=#{file_type}
+        WHERE file_id=#{file_id}
+    </update>
+    
+    <delete id="deleBooksFile">
+        DELETE FROM wkrj_bus_booksfile
+        <if test="books_id != null and books_id != ''">
+             WHERE books_id=#{books_id}
+        </if>
+        <if test="file_id != null and file_id != ''">
+             WHERE file_id=#{file_id}
+        </if>
+    </delete>
+    
+</mapper>

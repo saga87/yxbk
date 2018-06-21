@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!--启动注解 -->
+	<!-- <mvc:annotation-driven >
+		<mvc:message-converters>     
+        <bean class="wkrjsystem.utils.StringHttpMessageConverter">     
+            <property name="supportedMediaTypes">     
+                <list>     
+                    <value>text/plain;charset=UTF-8</value>     
+                    <value>text/html;charset=UTF-8</value>     
+                </list>     
+            </property>     
+        </bean>      
+    </mvc:message-converters>
+	</mvc:annotation-driven> -->
+	
+	<mvc:annotation-driven >
+	 	<mvc:message-converters>  
+           <!-- <bean class="wkrjsystem.utils.StringHttpMessageConverter" />   -->
+           <bean id="fastJsonHttpMessageConverter"
+		        class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		        <property name="charset" value="UTF-8" />
+		        <property name="supportedMediaTypes">
+		        <list>
+		        <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+		    <value>text/html;charset=UTF-8</value>
+		    <value>text/json;charset=UTF-8</value>
+		    <value>application/json;charset=UTF-8</value>
+		        </list>
+		    </property>
+		    </bean>
+       </mvc:message-converters>  
+	</mvc:annotation-driven>
+	
+
+	<!-- 定义自动封装json -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+
+		</property>
+
+	</bean>
+
+	<!-- 访问静态资源 不配置将会报404 -->
+	<mvc:resources location="/" mapping="/**" />
+
+	<!--视图解析器 -->
+	<bean id="viewRoslver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+
+	</bean>
+	
+	<!--异常捕获 将Controller抛出的异常转到特定View -->
+<!-- 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">exception</prop>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">system/403</prop>
+				<prop key="java.lang.Throwable">system/500</prop>
+			</props>
+		</property>
+	
+	</bean> -->
+
+		<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 指定所上传文件的总大小不能超过200m。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<property name="maxUploadSize" value="209715200" />
+	</bean>
+		<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+				<prop
+					key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--导入扫描的包 -->
+	<import resource="classpath*:/**/moduleConfig.xml" />
+	<!-- <import resource="classpath:wkrjsystemdev/moduleConfig.xml" /> -->
+
+	<!--Shiro Spring 权限注解的支持  -->
+	<aop:config proxy-target-class="true"></aop:config>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+</beans>

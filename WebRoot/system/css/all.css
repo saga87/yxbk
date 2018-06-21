@@ -1,0 +1,40 @@
+/********************
+*	CSS Document	*
+*	Auther:CL		*
+*	Date:2015-10-12	*
+********************/
+/*edit by sxt*/
+body {font:12px "宋体","Arial Narrow",HELVETICA;background:#fff;}
+body, p, ul, li, ol, h1, h2, h3, h4, h5, h6, dl, dt, dd, form, iframe,th,td ,fieldset,legend,input,textarea,select{margin: 0;padding: 0;}
+a,img{ outline:none;}
+ul {list-style: none;}
+img {border: 0 none;vertical-align: middle;}
+input, select {vertical-align: middle;outline: none;}
+.noindent {text-indent: 0;}
+.fl {float: left;}
+.fr {float: right;}
+.clear {clear: both;}
+.over {overflow: auto;zoom: 1;}
+a{outline: none;text-decoration: none;color: #333;}
+input{ outline:none;}
+.clearfix:before, .clearfix:after {content: "";display: table;}
+.clearfix:after{clear: both;}
+.clearfix {*zoom:1;}
+em{font-style:normal;}
+/* 初始化结束  */
+.bg{width:100%;height:100%;position:absolute;left:0;top:0;z-index:1;}
+.bg img{text-align:center;}
+.con{width:715px;height:400px;position:absolute;top:165px;left:25%;z-index:1;}
+.tit{margin:0 0 20px 0;text-align:center;}
+.l{height:268px;border:solid 1px #fff;background:url(../imgs/l_con.png);overflow:hidden;padding:10px;}
+.l_r{width:300px;padding:39px 44px;float:right;background:#fff;}
+.name{width:270px;height:18px;background:#efeef3;padding:10px 5px;margin:0 0 10px 0;}
+.name input{width:230px;margin:0 5px;border:0 none;background:#efeef3;color:#a1a0a4;}
+.pass2{display:none}
+.yzm_con{width:280px;overflow:hidden;padding:0 0 10px 0;}
+.yzm {width:175px;float:left}
+.yzm input{width:145px;}
+.yzm_img{float:right;}
+.yzm_img img{width:95px;height:39px;}
+.sub{width:120px;height:35px;line-height:35px;background:#1d9a39;text-align:center;font-family:"微软雅黑";font-size:18px;color:#fff;border:0 none;}
+.foot{width:100%;color:#fff;text-align:center;position:absolute;bottom:10px;z-index:1;}

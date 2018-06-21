@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.front.books.dao.WkrjWebBooksDao">
+
+	<select id="countBooks" resultType="Long" >
+        SELECT COUNT(*)  FROM wkrj_bus_books  where 1=1 
+        <if test="books_name != null and books_name != ''">
+             AND books_name LIKE CONCAT(CONCAT('%',#{books_name}),'%')
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+    </select>
+    
+    <select id="getBooksById" resultType="map" parameterType="Object">
+       
+        SELECT books_id,books_name,books_author,publishinghouse,pagination,coverpath,languagetype,content,pageview,
+	    DATE_FORMAT(publishing_time,'%Y-%m-%d') AS publishing_time,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime ,books_path
+	    FROM wkrj_bus_books 
+        where 1=1
+        <if test="books_id != null and books_id != ''">
+             AND books_id=#{books_id}
+        </if>
+        ORDER BY pageview DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    <select id="listBooks" resultType="map" parameterType="Object">
+       
+        SELECT books_id,books_name,books_author,publishinghouse,pagination,coverpath,languagetype,content,pageview,
+	    DATE_FORMAT(publishing_time,'%Y-%m-%d') AS publishing_time,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime,books_path 
+	    FROM wkrj_bus_books 
+	    WHERE 1=1
+        <if test="data_id != null and data_id != ''">
+            AND data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+        ORDER BY pageview DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    <select id="searchBooks" resultType="map" parameterType="Object">
+       
+        SELECT books_id,books_name,books_author,publishinghouse,pagination,coverpath,languagetype,content,pageview,
+	    DATE_FORMAT(publishing_time,'%Y-%m-%d') AS publishing_time,DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime,books_path 
+	    FROM wkrj_bus_books 
+	    WHERE 1=1
+        <if test="books_name != null and books_name != ''">
+            AND books_name LIKE CONCAT(CONCAT('%',#{books_name}),'%')
+        </if>
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    
+    <select id="getBooksFileById" resultType="map" parameterType="Object">
+    	SELECT * FROM `wkrj_bus_booksfile`
+    	where 1=1
+    	<if test="books_id != null and books_id != ''">
+             AND books_id=#{books_id}
+        </if>
+    </select>
+    
+    <select id="listNewBook" resultType="map" parameterType="Object">
+        SELECT books_id,books_name,DATE_FORMAT(publishing_time,'%Y-%m-%d') AS publishing_time,
+        DATE_FORMAT(addtime,'%Y-%m-%d') AS addtime
+        FROM wkrj_bus_books  
+        WHERE 1=1  ORDER BY addtime DESC 
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    <select id="getData" resultType="WkrjData">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where data_parent_id = '03' AND data_show = '1'
+		ORDER BY data_order+0   	  	
+    </select>
+    
+    <select id="getSecondData" resultType="WkrjData" parameterType="String">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where  data_parent_id = #{data_parent_id}  AND data_show = '1'
+		ORDER BY data_order+0 	
+    </select>
+    
+     <update id="addPageviews" parameterType="String">
+        UPDATE wkrj_bus_books SET pageview = pageview+1
+        WHERE books_id=#{books_id}
+    </update>
+    
+
+</mapper>

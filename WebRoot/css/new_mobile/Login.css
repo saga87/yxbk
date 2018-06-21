@@ -1,0 +1,121 @@
+@charset "utf-8";
+/**样式初始化**/
+body {
+	background:#FFF;
+	font:12px "宋体";
+}
+body,p,a {
+	margin:0;
+	padding:0;
+}
+img {
+	border:0 none;
+	vertical-align: top;
+}
+a,a:hover {
+	color:#333;
+	text-decoration:none;
+}
+a,input,img{
+	outline:none;
+}
+
+.LoginBg1, .LoginBar{
+	height:100%;
+	width:100%;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.LoginBg1{
+	z-index:2;
+}
+.LoginBg1 img{
+	height:100%;
+	width:100%;
+}
+.LoginBar{
+	background:url(../images/LoginBg2.png) no-repeat 50% 50%;
+	background-size:cover;
+	z-index:3;
+}
+.LoginMain{
+	height:630px;
+	width:617px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	z-index:4;
+	margin:-325px 0 0 -308.5px;
+}
+.LoginStit{
+	width:564px;
+	margin:36px auto 10px;
+}
+.LoginForm{
+	background:url(../images/FormBg.png) no-repeat;
+	height:386px;
+	width:564px;
+	margin:0 auto 30px;
+}
+.LoginForm form{
+	width:360px;
+	margin:auto;
+	padding:40px 0 0 0;
+}
+.LoginForm form p{
+	margin:0 0 10px 0;
+}
+.ComInp input.cur{
+	border:solid 1px #f59cc6;
+}
+.user input, .pass input, .verif input{
+	border:solid 1px #b6c7d6;
+	color:#808080;
+	font-family:'微软雅黑';
+	font-size:14px;
+	padding:6px 0 6px 5px;
+}
+.user input, .pass input{
+	width:353px;
+}
+.pass2{
+	display:none;
+}
+.verif, .LoginSub{
+	overflow:hidden;
+}
+.verif input{
+	float:left;
+	width:262px;
+}
+.verif img{
+	float:right;
+	height:34px;
+}
+.LoginSub .sub, .LoginSub .reset{
+	border:0;
+	font-size:14px;
+	font-weight:bold;
+	height:44px;
+	letter-spacing:4px;
+	width:170px;
+}
+.LoginSub .sub{
+	background:url(../images/Sub.png) no-repeat;
+	color:#FFF;
+	float:left;
+}
+.LoginSub .reset{
+	background:url(../images/reset.png) no-repeat;
+	color:#6d798c;
+	float:right;
+}
+
+
+
+.Copy{
+	color:#FFF;
+	width:100%;
+	text-align:center;
+}

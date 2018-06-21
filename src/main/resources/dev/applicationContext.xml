@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<bean id="wkrjUserDevService" class="wkrjsystemdev.userdev.service.WkrjUserDevServiceImpl"></bean> 
+	<bean id="wkrjUserService" class="wkrjsystem.user.service.WkrjUserServiceImpl"></bean> 
+	<bean id="wkrjRoleDevService" class="wkrjsystemdev.roledev.service.WkrjRoleDevServiceImpl"></bean> 
+	<bean id="wkrjRoleService" class="wkrjsystem.role.service.WkrjRoleServiceImpl"></bean> 
+	<bean id="wkrjLonginDevService" class="wkrjsystemdev.logindev.service.WkrjLonginDevServiceImpl"></bean> 
+	<bean id="wkrjLonginService" class="wkrjsystem.wkrjlogin.service.WkrjLonginServiceImpl"></bean> 
+	<bean id="wkrjModuleService" class="wkrjsystemdev.module.service.WkrjModuleServiceImpl"></bean> 
+	
+	<!--导入扫描的包  -->
+	<import resource="spring-mybatis.xml"/>
+	<import resource="spring-shiro.xml"/>
+	
+	 <!--加入webservice  -->
+	<!-- <import resource="classpath:webservice/cxf-server.xml"/> -->
+	
+	 <!--加入定时任务  -->
+	<!-- <import resource="classpath:dev/spring-quartz.xml"/> -->
+	
+</beans>

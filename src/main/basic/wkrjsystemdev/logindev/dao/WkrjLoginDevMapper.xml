@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystemdev.logindev.dao.WkrjLoginDevDao">
+	
+	<select id="findUserByNameAndPwd" resultType="WkrjUserDev" parameterType="WkrjUserDev">
+		
+		SELECT user_id FROM wkrj_sys_user_dev 
+		where user_name=#{user_name} and user_password=#{user_password}
+	
+	</select>
+	
+	<resultMap type="WkrjUserDev" id="simpleWkrjUser">
+		
+		<id column="user_id" property="user_id"/>
+		<result column="station_id" property="station_id"/>
+		<result column="dept_id" property="dept_id"/>
+		<result column="user_name" property="user_name"/>
+		<result column="user_password" property="user_password"/>
+		<result column="user_realname" property="user_realname"/>
+		<result column="user_card" property="user_card"/>
+		<result column="user_is_enable" property="user_is_enable"/>
+		<result column="user_inputtime" property="user_inputtime" />
+		<result column="user_last_ip" property="user_last_ip" />
+		<result column="user_no" property="user_no" />
+		<result column="user_last_time" property="user_last_time" />
+		<result column="user_tel" property="user_tel" />
+		<result column="user_accounttype" property="user_accounttype" />
+		
+	</resultMap>
+	
+	<resultMap type="WkrjUserDev" id="wkrjUserAndRole" extends="simpleWkrjUser">
+		
+		<collection property="user_role" ofType="WkrjRoleDev">
+		
+			<id column="role_id" property="role_id"/>
+			<result column="role_name" property="role_name"/>
+			<result column="role_type" property="role_type"/>
+			<result column="role_dept" property="role_dept"/>
+			<result column="role_other" property="role_other"/>
+			
+		</collection>
+		
+		
+	</resultMap>
+	
+	<select id="getUserInfoById" resultMap="wkrjUserAndRole" parameterType="Object">
+	
+		SELECT user_accounttype,user.user_id,userrole.role_id,role.role_name,station_id,dept_id,user_name,user_password,user_realname,user_card,user_is_enable,
+			   DATE_FORMAT(user_inputtime,'%Y-%m-%d %H:%i:%s') user_inputtime,user_last_ip,user_no,
+			   DATE_FORMAT(user_last_time,'%Y-%m-%d %H:%i:%s') user_last_time,user_tel
+		FROM   wkrj_sys_user_dev user left join wkrj_sys_user_role_dev userrole on user.user_id=userrole.user_id
+			   left join wkrj_sys_role_dev role on userrole.role_id=role.role_id
+			   
+		where user.user_id=#{userId}
+		
+	</select>
+	
+</mapper>
+

@@ -1,0 +1,369 @@
+@charset "utf-8";
+/**样式初始化**/
+body {
+	background:#FFF;
+	font:16px "微软雅黑";
+}
+body,ul,li,ol,li,dl,dt,dd,p,a {
+	margin:0;
+	padding:0;
+}
+ul,li {
+	list-style:none;
+}
+img {
+	border:0 none;
+	vertical-align: top;
+}
+a,a:hover {
+	color:#333;
+	text-decoration:none;
+}
+a,input,img,select,textarea {
+	outline:none;
+}
+/**CommonStyle**/
+.clearfix:before,.clearfix:after {
+	content:"";
+	display:table;
+}
+.clearfix:after {
+	clear:both;
+}
+.clearfix {
+	*zoom:1;
+}
+.clear {
+	clear:both;
+}
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.Ovis {
+	overflow:hidden;
+}
+.Odis {
+	display:block;
+}
+
+.W640{
+	height:100%;
+	max-width:640px;
+	margin:auto;
+}
+.f7{
+	background:#f7f7ef;
+}
+
+/**登录**/
+.LoginBar{
+	height:100%;
+	width:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:2;
+}
+.Login img.Login_Img{
+	height:100%;
+	width:100%;
+}
+.Login p.Login_Tit{
+	width:100%;
+	text-align:center;
+	position:absolute;
+	top:8%;
+	z-index:3;
+}
+.Login p.Login_Tit img{
+	width:70%;
+	padding:18% 0 0 0;
+}
+
+.Login form{
+	height:auto;
+	width:100%;
+	position:fixed;
+	bottom:30%;
+	z-index:5;
+}
+.Login form p{
+	padding:0 10px;
+	margin:0 0 8px 0;
+	overflow:hidden;
+}
+
+.Login form p input{
+	border:0;
+	font-size:1rem;
+	font-family:'微软雅黑';
+	width:100%;
+	padding:8px 0;
+}
+.Login form p input.username, .Login form p input.pass{
+	border:solid 1px #CCC;
+	border-radius:5px;
+	padding:8px 0;
+	text-indent:30px;
+}
+.Login form p input.username{
+	background:url(../imgs/user.png) no-repeat #FFF 3px 50%;
+	background-size:20px;
+}
+.Login form p input.pass{
+	background:url(../imgs/pass.png) no-repeat #FFF 3px 50%;
+	background-size:20px;
+}
+.Login form p.ComInp input.cur{
+	border:solid 1px #f59cc6;
+}
+.Login form p input.sub{background:#408ff4;
+	border-bottom:solid 3px #316cb9;
+	border-radius:5px;
+	color:#FFF;
+	width:100%;
+}
+
+.PageTit{
+	background:#FFF;
+	border-bottom:solid 1px #CCC;
+	height:41px;
+	line-height:41px;
+	width:100%;
+	position:fixed;
+	top:0;
+	z-index:55;
+	text-align:center;
+}
+.Gform{
+	padding:45px 0 0 0;
+}
+.UpClue{
+	padding:0 10px;
+}
+.FormItem{
+	padding:0 0 5px 0;
+	max-width:400px;
+}
+.FormUpFile{
+	padding:0 0 5px 0;
+}
+.FormUpFile ul{
+	padding:0 10px;
+}
+.FormUpFile ul li{
+	float:left;
+	width:33.3%;
+	text-align:left;
+	position:relative;
+}
+.FormItem span, .FormUpFile span{
+	display:block;
+	line-height:1.8rem;
+	padding:0 0 5px 0;
+}
+.FormUpFile span{
+	border-bottom:dashed 1px #CCC;
+	padding:0 10px 5px;
+	margin:0 0 15px 0;
+}
+.FormItem1 input{font-size:1rem;}
+.FormItem input{
+	background:#FFF;
+	border:solid 1px #c3c3c3;
+	border-radius:5px;
+	display:inline-block;
+	vertical-align:middle;
+	padding:8px 0 8px 2px;
+	font-family:'微软雅黑';
+    font-size:1rem;
+    width:100%;
+}
+.FormItem select{
+	border:solid 1px #c3c3c3;
+    border-radius:5px;
+    font-family:'微软雅黑';
+    font-size:1em;
+    width:99%;
+    vertical-align:middle;
+    padding:8px 0 8px 2px;
+}
+
+.FormUpFile{
+	padding:10px 0 0 0;
+}
+.FormUpFile i{
+	position:absolute;
+	right:0;
+	top:0;
+	z-index:11;
+}
+.FormUpFile i img{
+	height:30px;
+	width:30px;
+}
+.FormUpFile b{
+	display:inline-block;
+	position:relative;
+}
+.FormUpFile input, .FormUpFile img{
+	vertical-align:middle;
+}
+.FormUpFile input{
+	border:none;
+	cursor:pointer;
+	height:100%;
+	width:100%;
+	position:absolute;
+	right:0;
+	top:0;
+	z-index:11;
+	opacity:0;
+}
+.FormUpFile img{
+	height:90px;
+	width:90%;
+	margin:0 10px 10px 0;
+}
+.FormUpFile b{
+	width:100%
+}
+.FormSub{
+	width:100%;
+	margin:10px 0;
+	text-align:center;
+}
+.FormSub input{
+	background:#408ff4;
+	border:0;
+	border-radius:5px;
+	border-bottom:solid 3px #316cb9;
+	color:#FFF;
+	font-size:1rem;
+	font-family:"微软雅黑";
+	width:60%;
+	padding:8px 0;
+}
+
+.Ghis{
+	padding:41px 0 25px 0;
+}
+.GhisTit{
+	background:url(../imgs/GtitBG.jpg) repeat;
+	height:41px;
+}
+.GhisTit p{
+	float:left;
+	width:50%;
+}
+.GhisTit p b{
+	border-right:solid 1px #FFF;
+	color:#595959;
+	display:block;
+	font-weight:100;
+	height:41px;
+	line-height:41px;
+	text-align:center
+}
+.GhisTit p:last-child b{
+	border:0;
+}
+.Ghislist{
+	padding:0 0 15px 0;
+}
+.Ghislist ul li{
+	border-bottom:solid 1px #CCC;
+	font-size:1rem;
+	padding:0.5rem 0;
+	overflow:hidden;
+}
+.Ghislist ul li:nth-child(2n){
+	background:#f5f7fb;
+}
+.Ghislist ul li p{
+	float:left;
+	width:50%;
+	text-align:center;
+}
+.paginter{
+	text-align:center;
+}
+.paginter li{
+	display:inline-block;
+}
+.paginter li a{
+	background:#FFF;
+	border:solid 1px #CCC;
+	display:block;
+	padding:3px 5px;
+}
+
+.Tsuccess span{
+	display:block;
+	text-align:center;
+	padding:40% 0 0 0;
+}
+.Tsuccess span img{
+	width:70%;
+}
+.ErrorBank{
+	width:100%;
+	position:absolute;
+	left:0;
+	bottom:10%;
+	z-index:99;
+	text-align:center;
+}
+.ErrorBank a{
+	background:#408ff4;
+	border-bottom:solid 3px #316cb9;
+	border-radius:3px;
+	color:#FFF;
+	display:inline-block;
+	width:30%;
+	padding:8px 0;
+}
+footer .menu, footer .ListBtm{
+    background:#FFF;
+    border-top:solid 1px #CCC;
+    display:-webkit-box;
+    display:box;
+    font-size:0.9rem;
+}
+footer{
+    width:100%;
+    position:fixed;
+    bottom:0;
+    left:0;
+    z-index:99;
+}
+footer .menu a ,footer .ListBtm a{
+    border-right:solid 1px #CCC;
+    display:block;
+    -webkit-box-flex:1;
+    padding:0.5rem 0;
+    text-align:center;
+    font-size:12px;
+}
+footer .menu a:last-child, footer .ListBtm a:last-child{
+    border:0;
+}
+footer .ListBtm a{
+    padding:30px 0 5px 0;
+    font-size:12px;
+}
+footer .ListBtm a:first-child{
+    background:url(../imgs/BtnIco1.png) no-repeat 50% 5px;
+    background-size:20px;
+}
+footer .ListBtm a:nth-child(2){
+    background:url(../imgs/BtnIco2.png) no-repeat 50% 5px;
+    background-size:20px;
+}
+footer .ListBtm a:last-child{
+    background:url(../imgs/BtnIco3.png) no-repeat 50% 5px;
+    background-size:20px;
+}

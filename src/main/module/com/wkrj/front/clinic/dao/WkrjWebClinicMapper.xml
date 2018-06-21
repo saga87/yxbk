@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wkrj.front.clinic.dao.WkrjWebClinicDao">
+
+
+<select id="listClinics" resultType="map" parameterType="Object">
+       
+       SELECT c.clinic_id, c.clinic_name, c.keyword, c.data_id,DATE_FORMAT(c.publish_time,'%Y-%m-%d') as publish_time,
+		c.chinesetitle, c.constitutor, c.provenance, c.correlationguide, c.clinic_type, c.content, c.pageview
+		,DATE_FORMAT(c.addtime,'%Y-%m-%d') as addtime,c.coverpath,c.clinic_path
+       
+        FROM `wkrj_bus_clinic` c 
+        where 1=1
+        <if test="data_id != null and data_id != ''">
+            AND data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+        
+        ORDER BY addtime DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    <select id="searchClinics" resultType="map" parameterType="Object">
+       
+       SELECT c.clinic_id, c.clinic_name, c.keyword, c.data_id,DATE_FORMAT(c.publish_time,'%Y-%m-%d') as publish_time,
+		c.chinesetitle, c.constitutor, c.provenance, c.correlationguide, c.clinic_type, c.content, c.pageview
+		,DATE_FORMAT(c.addtime,'%Y-%m-%d') as addtime,c.coverpath,c.clinic_path
+       
+        FROM `wkrj_bus_clinic` c 
+        where 1=1
+        <if test="clinic_name != null and clinic_name != ''">
+            AND clinic_name LIKE CONCAT(CONCAT('%',#{clinic_name}),'%')
+        </if>
+        
+        ORDER BY addtime DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    
+    
+     <select id="getClinicById" resultType="map" parameterType="Object">
+       
+       SELECT c.clinic_id, c.clinic_name, c.keyword, c.data_id,DATE_FORMAT(c.publish_time,'%Y-%m-%d') as publish_time,
+		c.chinesetitle, c.constitutor, c.provenance, c.correlationguide, c.clinic_type, c.content, c.pageview
+		,DATE_FORMAT(c.addtime,'%Y-%m-%d') as addtime,c.coverpath,c.clinic_path
+        FROM `wkrj_bus_clinic` c 
+        where 1=1
+        <if test="clinic_id != null and clinic_id != ''">
+            AND clinic_id = #{clinic_id}
+        </if>
+        ORDER BY addtime DESC
+        LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    
+    
+    <select id="getClinicFileById" resultType="map" parameterType="Object">
+    	SELECT * FROM `wkrj_bus_clinicfile`
+    	where 1=1
+    	<if test="clinic_id != null and clinic_id != ''">
+            AND clinic_id = #{clinic_id}
+        </if>
+    </select>
+    
+    <select id="countClinics" resultType="Long" >
+        SELECT COUNT(*)  FROM wkrj_bus_clinic  where 1=1 
+        <if test="clinic_name != null and clinic_name != ''">
+             AND clinic_name LIKE CONCAT(CONCAT('%',#{clinic_name}),'%')
+        </if>
+        <if test="data_id != null and data_id != ''">
+             AND data_id LIKE CONCAT(#{data_id},'%')
+        </if>
+        
+       
+        
+    </select>
+    
+    <select id="getData" resultType="WkrjData">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where data_parent_id = '02' AND data_show = '1'
+		ORDER BY data_order+0   	  	
+    </select>
+    
+    <select id="getSecondData" resultType="WkrjData" parameterType="String">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where  data_parent_id = #{data_parent_id} AND data_show = '1'
+		ORDER BY data_order+0  	
+    </select>
+    
+    <update id="addPageviews" parameterType="String">
+        UPDATE wkrj_bus_clinic SET pageview = pageview+1
+        WHERE clinic_id=#{clinic_id}
+    </update>
+    
+    <select id="getDataById" resultType="WkrjData">
+		SELECT *
+		FROM `wkrj_bus_data` 
+		where data_id = #{data_id}   	
+    </select>
+    
+  </mapper>  
+    

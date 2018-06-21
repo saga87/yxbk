@@ -1,0 +1,135 @@
+.text_red{
+	color:red;
+}
+
+.formdiv{
+    float:left;
+    clear:both;
+    margin:5px 0px;
+    background-color:#f4f4f4;
+    border:1px solid #fff;
+    width:95%;
+    padding:5px;
+    margin-left:5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+}
+.formdiv label{
+	width: 94px;
+	margin: 0px 10px;
+	min-height:30px;
+	line-height:30px;
+	text-align: right;
+	float: left;
+}
+.formdiv .r_div,.formdiv input,.formdiv .l-text,.formdiv .l-text input{
+	width:300px;
+	min-height:30px;
+	/* line-height:30px; */
+	float:left;
+}
+.formdiv .l-text input.radio,.formdiv .l-text input.checkbox{
+	height:18px;
+	float:left;
+}
+.formdiv .r_div textarea,.formdiv .r_div select{
+	width:300px;
+	float:left;
+}
+
+
+
+.co{
+    float:left;
+    clear:both;
+    margin:5px 0px;
+    background-color:#f9f9f9;
+    border:1px solid #fff;
+    width:95%;
+    padding:5px;
+    margin-left:5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+}
+.co label{
+	width:80px;
+	margin: 0px 10px;
+	min-height:30px;
+	line-height:30px;
+	text-align: right;
+	float: left;
+}
+.co .r_div,.co input,.co .l-text,.co .l-text input{
+	width:300px;
+	min-height:30px;
+	/* line-height:30px; */
+	float:left;
+}
+.co .l-text input.radio,.co .l-text input.checkbox{
+	height:18px;
+	float:left;
+}
+.co .r_div textarea,.co .r_div select{
+	width:300px;
+	float:left;
+}
+
+.l-text{width:300px;}
+.l-text input.ui-textbox{width:300px;}
+
+
+.fl_s{float:left;width:183px !imporant;overflow:hidden;line-height:21px;}
+.fl_s2{float:left;width:363px;overflow:hidden;}
+.fl_s3{float:left;width:180px;overflow:hidden;}
+.fl_s .l-text-wrapper{float:right}
+.fl_s2 .l-text-wrapper{float:right;}
+.fl_s input{width:120px !important;}
+.fl_s .l-text{width:120px !important;}
+
+.co2{
+    float:left;
+    clear:both;
+    margin:5px 0px;
+    background-color:#f9f9f9;
+    border:1px solid #fff;
+    width:95%;
+    padding:5px;
+    margin-left:5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+}
+.co2 label{
+	width:120px;
+	margin: 0px 10px;
+	min-height:30px;
+	line-height:30px;
+	text-align: right;
+	float: left;
+}
+.co2 .r_div,.co2 input,.co2 .l-text,.co2 .l-text input{
+	width:200px;
+	min-height:30px;
+	/* line-height:30px; */
+	float:left;
+}
+.co2 .l-text input.radio,.co2 .l-text input.checkbox{
+	height:18px;
+	float:left;
+}
+.co2 .r_div textarea,.co2 .r_div select{
+	width:200px;
+	float:left;
+}
+

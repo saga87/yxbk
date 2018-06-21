@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		 <property name="corePoolSize" value="10" />
+		 <property name="maxPoolSize" value="100" />
+		 <property name="queueCapacity" value="500" />
+	</bean>
+	
+	<!-- <bean id="bizObject" class="business.nongzi.service.WkrjNongziRecordService" /> -->
+	
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		 <property name="targetObject" ref="bizObject" />
+		 <property name="targetMethod" value="insertInfoToTable" />
+	</bean>
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		 <property name="jobDetail" ref="jobDetail" />
+		 <property name="cronExpression" value="0 0 2 * * ?" />
+	 </bean>
+
+	<bean id="taskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		 <property name="jobDetail" ref="jobDetail" />
+		 <property name="startDelay" value="10000" />
+		 <property name="repeatInterval" value="60000" />
+	</bean>
+	
+	<!-- 设置调度 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	 <property name="triggers">
+	  <list>
+	   <ref bean="cronTrigger" />
+	  </list>
+	 </property>
+	 <property name="taskExecutor" ref="executor" />
+	</bean>
+
+	
+	
+</beans>

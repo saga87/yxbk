@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+     <context:property-placeholder location="classpath:dbconfig.properties" />   
+        
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+
+		<property name="driverClassName" value="${jdbc.driverClass}"></property>
+		<property name="url"
+			value="${jdbc.jdbcUrl}"></property>
+		<property name="username" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<!--连接池启动时的初始值 -->
+		<property name="initialSize" value="1"></property>
+		<!--连接池的最大值 -->
+		<property name="maxActive" value="500"></property>
+		<!--最大空闲 -->
+		<property name="maxIdle" value="10"></property>
+		<property name="minIdle" value="0"></property>
+
+	</bean>
+
+
+	<!-- 2. mybatis 的SqlSession 的工厂: SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" name="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="wkrjsystem,wkrjsystemdev,business,com.wkrj"></property>
+		<property name="mapperLocations" value="classpath*:/**/*Mapper.xml"></property>
+	</bean>
+
+	<!-- 3. mybatis 自动扫描加载Sql 映射文件 : MapperScannerConfigurer -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="wkrjsystem,wkrjsystemdev,business,com.wkrj"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<aop:config>  
+	    <aop:pointcut id="allServiceMethods"  
+	                  expression="execution(* com.wkrj.*.*(..))"/>  
+	    <aop:advisor advice-ref="defaultTransactionAdvice"  
+	                 pointcut-ref="allServiceMethods"/>  
+	</aop:config>  
+	<tx:advice id="defaultTransactionAdvice" transaction-manager="transactionManager">  
+	    <tx:attributes>
+	    	<!-- 根据方法名指定事务的属性 -->
+			<tx:method name="update*" />
+			<tx:method name="del*" />
+			<tx:method name="add*" />    
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+			<!-- 到时候去掉下面一行 这是做测试用的 -->
+			<tx:method name="checkTransaction"/>
+	    </tx:attributes>  
+	</tx:advice>  
+
+</beans>

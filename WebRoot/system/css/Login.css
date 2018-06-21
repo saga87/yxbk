@@ -1,0 +1,103 @@
+@charset 'utf-8';
+/**样式初始化**/
+body{background:#FFF;font:14px "微软雅黑";}
+body,ul,li,ol,li,dl,dt,dd,p,a,div{margin:0;padding:0;}
+ul,li{list-style:none;}
+img {border: 0 none;vertical-align: top;}
+a,a:hover{color:#333;text-decoration:none;}
+a,input,img,select,textarea{outline:none;}
+/**CommonStyle**/
+.clearfix:before,.clearfix:after{content:"";display:table;}
+.clearfix:after{clear:both;}
+.clearfix{*zoom:1;}
+.clear{clear:both;}
+.fl{float:left;}
+.fr{float:right;}
+/*初始化样式结束*/
+.Dltop{
+    height:94px;
+}
+.TopLogo{
+    height:62px;
+    width:990px;
+    padding:16px 0;
+    margin:0 auto;
+}
+.TopLogo img{
+    height:62px;
+}
+.DlBanne{
+    height:655px;
+    border-top:#174b61 1px solid;
+}
+.DlBanne img{
+    width:100%;
+    height:655px;
+}
+.Dlinput{
+    height:30px;
+    background:#f8f8f8;
+    border-bottom:1px solid #d9d9d9;
+    padding:10px 0;
+}
+.inputCenter{
+    width:990px;
+    margin:0 auto;
+    text-align:center;
+    overflow:hidden;
+}
+.inputCenter span{
+    font-size:16px;
+    line-height:30px;
+    margin-right:7px;
+}
+.inputCenter input{
+    margin-right:20px;
+    vertical-align: top;
+}
+.inputCenter input.name,.inputCenter input.pass1,.inputCenter input.pass2{
+    width:162px;
+    height:14px;
+    padding:7px 5px 7px 45px;
+    border:1px solid #bfbfbf;
+    border-radius:5px;
+}
+.inputCenter input.name{
+    background:url(../imgs/nameback.png) no-repeat;
+}
+.inputCenter input.pass1,.inputCenter input.pass2{
+    background:url(../imgs/passback.png) no-repeat;
+}
+.inputCenter input.pass2{
+    display:none;
+}
+.inputCenter input.reset,.inputCenter input.submit{
+    width:85px;
+    height:30px;
+    background:#174b61;
+    border:0;
+    border-radius:5px;
+    color:#fff;
+    padding:0;
+    text-align: center;
+}
+.inputCenter input.submit{
+    margin-left:10px;
+}
+.Zlfooter{
+    height:82px;
+    line-height:82px;
+    color:#808080;
+    text-align:center;
+    margin-top:20px;
+}
+
+
+
+
+
+
+
+
+
+

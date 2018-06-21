@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wkrjsystem.menu.dao.WkrjMenuDao">
+	
+	
+	
+	<select id="getGridInfo" resultType="WkrjMenu" parameterType="String">
+		
+		SELECT module_id,menu_id,menu_name,menu_is_display,menu_level,menu_url,menu_parent_id,menu_order,menu_icon,menu_other 
+		FROM `wkrj_sys_menu` 
+		where menu_is_display=0 and menu_parent_id = #{parentId} order by menu_order
+	
+	</select>
+	
+	<select id="getAllMenu" resultType="WkrjMenu" parameterType="String">
+		
+		SELECT module_id,menu_id,menu_name,menu_is_display,menu_level,menu_url,menu_parent_id,menu_order,menu_icon,menu_other 
+		FROM `wkrj_sys_menu` 
+		where menu_parent_id = #{parentId} order by menu_order
+	
+	</select>
+	
+	<select id="checkNodeisLeaf" resultType="WkrjMenu" parameterType="String">
+		
+		SELECT module_id,menu_id,menu_name,menu_is_display,menu_level,menu_url,menu_parent_id,menu_order,menu_icon,menu_other 
+		FROM `wkrj_sys_menu` 
+		where menu_is_display=0 and menu_parent_id = #{parentId} order by menu_order
+	
+	</select>
+	
+	<select id="getMenuById" resultType="WkrjMenu" parameterType="String">
+		
+		SELECT module_id,menu_id,menu_name,menu_is_display,menu_level,menu_url,menu_parent_id,menu_order,menu_icon,menu_other 
+		FROM `wkrj_sys_menu` 
+		where menu_is_display=0 and menu_id = #{menu_id} and menu_parent_id = #{parentId} order by menu_order
+	
+	</select>
+	
+	<select id="getGridInfoChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(menu_id)  
+		FROM wkrj_sys_menu
+		where menu_is_display=0 and menu_parent_id = #{parentId}
+	
+	</select>
+	
+	<select id="getAllMenuChildCount" resultType="int" parameterType="String">
+		
+		SELECT count(menu_id)  
+		FROM wkrj_sys_menu
+		where menu_parent_id = #{parentId}
+	
+	</select>
+	
+	<insert id="addMenu" parameterType="WkrjMenu" >
+		
+		insert wkrj_sys_menu(module_id,menu_id,menu_name,menu_level,menu_url,menu_parent_id,menu_order,menu_icon,menu_is_display,menu_other)
+		values(#{module_id},#{menu_id},#{menu_name},#{menu_level},#{menu_url},#{menu_parent_id},
+			   #{menu_order},#{menu_icon},#{menu_is_display},#{menu_other});
+	
+	</insert>
+	
+	<update id="updateMenu" parameterType="WkrjMenu">
+		
+		update wkrj_sys_menu set module_id=#{module_id}, menu_name=#{menu_name},menu_level=#{menu_level},menu_url=#{menu_url},menu_parent_id=#{menu_parent_id},menu_order=#{menu_order},menu_icon=#{menu_icon},menu_is_display=#{menu_is_display},menu_other=#{menu_other}
+		where menu_id=#{menu_id}
+		
+	</update>
+
+	<delete id="delMenu">
+		
+		delete from wkrj_sys_menu where menu_id=#{id}
+		
+	</delete>
+	
+	<select id="checkeIsHaveUseIcon" resultType="boolean">
+		SELECT count(menu_id) FROM `wkrj_sys_menu` where menu_icon=#{icon}
+	</select>
+	
+	<select id="checkeIsHaveUseIconModule" resultType="boolean">
+		SELECT count(module_id) FROM wkrj_sys_module where module_icon=#{icon}
+	</select>
+	
+</mapper>
+
